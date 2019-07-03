@@ -1,0 +1,18 @@
+.p-button {
+  margin-right: 1em !important;
+}
+.p-component,
+.p-inputtext {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+body .p-disabled.p-dropdown,
+body .p-disabled .p-inputtext,
+body .p-inputtext:disabled {
+  opacity: 1;
+  cursor: not-allowed;
+  background-color: #eee;
+}
+.row-spacer .row {
+  margin-bottom: 1em;
+}
+/*# sourceMappingURL=main.d63859d1.chunk.css.map */

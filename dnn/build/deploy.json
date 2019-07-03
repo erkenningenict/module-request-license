@@ -1,0 +1,61 @@
+{
+  "targets": [
+    {
+      "name": "Module ascx control",
+      "path": "DesktopModules/AOCRaad.Erkenningen.RequestLicense",
+      "files": ["RequestLicense.ascx"]
+    },
+    {
+      "name": "Module js files",
+      "path": "DesktopModules/AOCRaad.Erkenningen.RequestLicense/static/js",
+      "clear": true,
+      "files": [
+        "static/js/2.35b55ba1.chunk.js",
+        "static/js/2.35b55ba1.chunk.js.map",
+        "static/js/main.d5eaa11a.chunk.js",
+        "static/js/main.d5eaa11a.chunk.js.map",
+        "static/js/runtime~main.42ac5946.js",
+        "static/js/runtime~main.42ac5946.js.map"
+      ]
+    },
+    {
+      "name": "Module css files",
+      "path": "DesktopModules/AOCRaad.Erkenningen.RequestLicense/static/css",
+      "clear": true,
+      "files": [
+        "static/css/2.4fd5642b.chunk.css",
+        "static/css/2.4fd5642b.chunk.css.map",
+        "static/css/main.d63859d1.chunk.css",
+        "static/css/main.d63859d1.chunk.css.map"
+      ]
+    },
+    {
+      "name": "Module media files",
+      "path": "DesktopModules/AOCRaad.Erkenningen.RequestLicense/static/media",
+      "clear": true,
+      "files": [
+        "static/media/color.c7a33805.png",
+        "static/media/line.567f5738.gif",
+        "static/media/open-sans-v15-latin-300.177cc92d.ttf",
+        "static/media/open-sans-v15-latin-300.27ef0b06.svg",
+        "static/media/open-sans-v15-latin-300.521d17bc.woff",
+        "static/media/open-sans-v15-latin-300.60c86674.woff2",
+        "static/media/open-sans-v15-latin-300.76b56857.eot",
+        "static/media/open-sans-v15-latin-700.148a6749.eot",
+        "static/media/open-sans-v15-latin-700.2e00b263.svg",
+        "static/media/open-sans-v15-latin-700.623e3205.woff",
+        "static/media/open-sans-v15-latin-700.7e08cc65.ttf",
+        "static/media/open-sans-v15-latin-700.d08c09f2.woff2",
+        "static/media/open-sans-v15-latin-regular.7aab4c13.svg",
+        "static/media/open-sans-v15-latin-regular.9dce7f01.eot",
+        "static/media/open-sans-v15-latin-regular.bf2d0783.woff",
+        "static/media/open-sans-v15-latin-regular.c045b73d.ttf",
+        "static/media/open-sans-v15-latin-regular.cffb686d.woff2",
+        "static/media/primeicons.38d77552.svg",
+        "static/media/primeicons.473e2a74.ttf",
+        "static/media/primeicons.71bb3d79.woff",
+        "static/media/primeicons.b8eccb10.eot"
+      ]
+    }
+  ]
+}
