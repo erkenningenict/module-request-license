@@ -152,8 +152,8 @@ class LicenseForm extends React.Component<{}, ILicenseFormState> {
           </Panel>
         ) : null}
         {this.state.currentStep === LicenseSteps.PersonalInfo ? (
-          <Panel title="Uw persoonsgegevens XXX">
-            <PersonalInfo {...props} />LicenseSteps
+          <Panel title="Uw persoonsgegevens">
+            <PersonalInfo {...props} />
           </Panel>
         ) : null}
         {this.state.currentStep === LicenseSteps.Email ? (
