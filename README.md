@@ -32,4 +32,4 @@ Run `npm run build:prod`
 
 This will compile the sources and assets to the `/build` folder. It will also update the `../AanvragenLicentie.ascx` file with the newly generated bundles references (based on the `../AanvragenLicentie-template.ascx` file).
 
-You can now run the nAnt build script in the DNN module to create an installation ZIP file.
+You can now run the nAnt build script in the DNN module to create an installation ZIP file. 
