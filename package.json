@@ -5,7 +5,7 @@
   "dependencies": {
     "@erkenningen/build": "^1.0.6",
     "@erkenningen/graphql": "^1.0.7",
-    "@erkenningen/ui": "^1.0.40",
+    "@erkenningen/ui": "^1.0.41",
     "apollo-boost": "^0.1.10",
     "apollo-link-schema": "^1.1.0",
     "apollo-upload-client": "^9.0.0",
