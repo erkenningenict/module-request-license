@@ -47,9 +47,7 @@ class FormSelect extends React.Component<IFormSelectProps, {}> {
         name={this.props.name}
       >
         {this.props.loading ? (
-          <span>
-            <Spinner />
-          </span>
+          <Spinner />
         ) : (
           <Select
             id={this.props.id}
@@ -58,9 +56,7 @@ class FormSelect extends React.Component<IFormSelectProps, {}> {
             value={this.getFormValue()}
             onChange={handleChange}
             disabled={this.props.readonly}
-            // className="w-100"
             filter={this.props.filter}
-            // style={{ maxWidth: '100%' }}
           />
         )}
       </FormItem>

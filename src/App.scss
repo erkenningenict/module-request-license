@@ -7,6 +7,10 @@
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
+.p-component.p-dropdown {
+  width: 100%;
+}
+
 body .p-disabled.p-dropdown,
 body .p-disabled .p-inputtext,
 body .p-inputtext:disabled {

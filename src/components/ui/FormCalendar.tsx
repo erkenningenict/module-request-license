@@ -78,6 +78,7 @@ class FormCalendar extends React.Component<IFormCalendarProps, {}> {
           onSelect={handleSelect}
           onBlur={handleBlur}
           placeholder={this.props.placeholder}
+          showIcon={true}
         />
       </FormItem>
     );
