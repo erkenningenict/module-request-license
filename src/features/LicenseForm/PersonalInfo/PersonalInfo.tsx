@@ -22,7 +22,7 @@ class PersonalInfo extends FormStep {
 
   public render() {
     return (
-      <div>
+      <>
         <Row>
           <Col>
             <Alert type="info">
@@ -164,7 +164,7 @@ class PersonalInfo extends FormStep {
             />
           </Col>
         </Row>
-      </div>
+      </>
     );
   }
 

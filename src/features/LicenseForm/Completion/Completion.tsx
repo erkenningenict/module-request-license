@@ -12,7 +12,7 @@ class Completion extends FormStep {
 
   public render() {
     return this.props.values.licenseRequestResult ? (
-      <div>
+      <>
         <Row>
           <Col>
             <Alert type="info">
@@ -50,7 +50,7 @@ class Completion extends FormStep {
             </p>
           </Col>
         </Row>
-      </div>
+      </>
     ) : null;
   }
 

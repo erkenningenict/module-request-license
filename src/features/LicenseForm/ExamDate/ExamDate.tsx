@@ -19,7 +19,7 @@ class ExamDate extends FormStep {
 
   public render() {
     return (
-      <div>
+      <>
         <Row>
           <Col>
             <Alert type="info">
@@ -46,7 +46,7 @@ class ExamDate extends FormStep {
           icon="fa fa-chevron-right"
           iconPos="right"
         />
-      </div>
+      </>
     );
   }
 

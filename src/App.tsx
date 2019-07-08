@@ -22,10 +22,10 @@ class App extends React.Component<{}, {}> {
       <ThemeContext.Provider value={{ mode: 'student' }}>
         <div className="App container-fluid">
           <HashRouter>
-            <div>
+            <>
               <Route path="/" component={LicenseForm} />
               <Route path="/no-valid-license" component={NoValidLicensePage} />
-            </div>
+            </>
           </HashRouter>
         </div>
       </ThemeContext.Provider>

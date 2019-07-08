@@ -28,7 +28,7 @@ class PreEducationOption extends FormStep {
 
   public render() {
     return (
-      <div>
+      <>
         <GqlQuery query={PRE_EDUCATION_CATEGORIES_QUERY}>
           {(data: any) => {
             const items = data.preEducationCategories;
@@ -143,7 +143,7 @@ class PreEducationOption extends FormStep {
           icon="fa fa-chevron-right"
           iconPos="right"
         />
-      </div>
+      </>
     );
   }
 

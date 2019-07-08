@@ -18,7 +18,7 @@ class CountryCheck extends FormStep {
 
   public render() {
     return (
-      <div>
+      <>
         <Row>
           <Col>
             <FormCheck
@@ -55,7 +55,7 @@ class CountryCheck extends FormStep {
           iconPos="right"
           disabled={this.props.isSubmitting}
         />
-      </div>
+      </>
     );
   }
 

@@ -22,7 +22,7 @@ class Login extends FormStep {
 
   public render() {
     return (
-      <div>
+      <>
         <Row>
           <Col>
             <FormCheck
@@ -41,7 +41,7 @@ class Login extends FormStep {
           iconPos="right"
           disabled={this.props.isSubmitting}
         />
-      </div>
+      </>
     );
   }
 

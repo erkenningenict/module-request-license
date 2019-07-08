@@ -20,7 +20,7 @@ class Email extends FormStep {
 
   public render() {
     return (
-      <div>
+      <>
         <Row>
           <Col>
             <Alert type="info">
@@ -48,7 +48,7 @@ class Email extends FormStep {
           icon="fa fa-chevron-right"
           iconPos="right"
         />
-      </div>
+      </>
     );
   }
 

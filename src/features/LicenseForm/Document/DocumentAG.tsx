@@ -27,7 +27,7 @@ class DocumentAG extends FormStep {
 
   public render() {
     return (
-      <div>
+      <>
         <Row>
           <Col>
             <Alert type="info">
@@ -109,7 +109,7 @@ class DocumentAG extends FormStep {
             />
           </Col>
         </Row>
-      </div>
+      </>
     );
   }
 

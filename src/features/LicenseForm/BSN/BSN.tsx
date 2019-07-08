@@ -61,7 +61,7 @@ class BSN extends FormStep<IBsnState> {
           }
 
           return (
-            <div>
+            <>
               <Row>
                 <Col>
                   <Alert type="info">
@@ -139,7 +139,7 @@ class BSN extends FormStep<IBsnState> {
                 icon={loading ? 'pi pi-spin pi-spinner' : 'fa fa-chevron-right'}
                 iconPos="right"
               />
-            </div>
+            </>
           );
         }}
       </Mutation>

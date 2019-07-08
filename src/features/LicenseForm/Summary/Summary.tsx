@@ -21,7 +21,7 @@ class Summary extends FormStep {
     const data = this.props.values;
 
     return (
-      <div>
+      <>
         <Row>
           <Col>
             <Alert type="info">
@@ -41,7 +41,7 @@ class Summary extends FormStep {
           <Col size="col-xs-6" className="row-spacer">
             <h4>Persoonsgegevens</h4>
             {!data.FormOptions.hasBsn ? (
-              <div>
+              <>
                 <Row>
                   <Col>
                     <b>Naam</b>
@@ -79,7 +79,7 @@ class Summary extends FormStep {
                   </Col>
                   <Col>{data.Persoon.Nationaliteit}</Col>
                 </Row>
-              </div>
+              </>
             ) : null}
             <Row>
               <Col>
@@ -109,7 +109,7 @@ class Summary extends FormStep {
           <Col size="col-xs-6" className="row-spacer">
             <h4>Certificering</h4>
             {data.FormOptions.Vooropleiding ? (
-              <div>
+              <>
                 <Row>
                   <Col>
                     <b>Vooropleiding</b>
@@ -126,7 +126,7 @@ class Summary extends FormStep {
                     ) : null}
                   </Col>
                 </Row>
-              </div>
+              </>
             ) : null}
             <Row>
               <Col>
@@ -135,7 +135,7 @@ class Summary extends FormStep {
               <Col>{data.FormOptions.Certificaat ? data.FormOptions.Certificaat.Naam : ''}</Col>
             </Row>
             {this.isAG() ? (
-              <div>
+              <>
                 <Row>
                   <Col>
                     <b>Certificaat Adviseren Gewasbescherming</b>
@@ -154,9 +154,9 @@ class Summary extends FormStep {
                     </Col>
                   </Row>
                 ) : null}
-              </div>
+              </>
             ) : (
-              <div>
+              <>
                 <Row>
                   <Col>
                     <b>Diploma</b>
@@ -183,7 +183,7 @@ class Summary extends FormStep {
                     </Col>
                   </Row>
                 ) : null}
-              </div>
+              </>
             )}
             {data.FormOptions.Remarks ? (
               <Row>
@@ -248,7 +248,7 @@ class Summary extends FormStep {
         </Row>
 
         {this.props.isSubmitting ? (
-          <div>
+          <>
             <Row>
               <Col>&nbsp;</Col>
             </Row>
@@ -260,9 +260,9 @@ class Summary extends FormStep {
                 </Alert>
               </Col>
             </Row>
-          </div>
+          </>
         ) : null}
-      </div>
+      </>
     );
   }
 

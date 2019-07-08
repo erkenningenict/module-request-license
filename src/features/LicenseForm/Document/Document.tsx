@@ -31,7 +31,7 @@ class Document extends FormStep {
 
   public render() {
     return (
-      <div>
+      <>
         <Row>
           <Col>
             <Alert type="info">Upload hier uw diploma, cijferlijst en legitimatie.</Alert>
@@ -133,7 +133,7 @@ class Document extends FormStep {
             />
           </Col>
         </Row>
-      </div>
+      </>
     );
   }
 

@@ -24,7 +24,7 @@ class Approval extends FormStep {
       <GqlQuery<ICertificatePriceQueryResult> query={CERTIFICATE_PRICE_QUERY}>
         {(result: ICertificatePriceQueryResult) => {
           return (
-            <div>
+            <>
               <Row>
                 <Col>
                   <Alert type="info">
@@ -69,7 +69,7 @@ class Approval extends FormStep {
                 iconPos="right"
                 onClick={this.nextStep}
               />
-            </div>
+            </>
           );
         }}
       </GqlQuery>
