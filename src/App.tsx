@@ -20,7 +20,7 @@ class App extends React.Component<{}, {}> {
   public render() {
     return (
       <ThemeContext.Provider value={{ mode: 'student' }}>
-        <div className="App container">
+        <div className="App container-fluid">
           <HashRouter>
             <>
               <Route path="/" component={LicenseForm} />
