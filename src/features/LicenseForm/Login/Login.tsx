@@ -4,6 +4,7 @@ import { LicenseSteps } from '../../../shared/Model';
 
 import { Button, Col, Row } from '@erkenningen/ui';
 
+import { ERKENNINGEN_LOGIN_URL } from '@erkenningen/config';
 import FormCheck from '../../../components/ui/FormCheck';
 import FormStep from '../../../components/ui/FormStep';
 
@@ -48,7 +49,7 @@ class Login extends FormStep {
   private onSubmit(): void {
     // If user has account, then redirect to DNN login
     if (this.props.values.FormOptions.hasAccount) {
-      window.location.href = process.env.REACT_APP_DNN_LOGIN_URL || '/login';
+      window.location.href = ERKENNINGEN_LOGIN_URL || '/login';
       return;
     }
 

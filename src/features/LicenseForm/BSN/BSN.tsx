@@ -1,3 +1,4 @@
+import { ERKENNINGEN_LOGIN_URL } from '@erkenningen/config';
 import * as React from 'react';
 import { Mutation, MutationResult } from 'react-apollo';
 
@@ -87,7 +88,7 @@ class BSN extends FormStep<IBsnState> {
                       {data.checkForExistingPersonByBsn.message}
                       <br />
                       Heeft u al een account bij Bureau Erkenningen? Log dan in door{' '}
-                      <a href={process.env.REACT_APP_DNN_LOGIN_URL}>hier</a> te klikken.
+                      <a href={ERKENNINGEN_LOGIN_URL}>hier</a> te klikken.
                     </Alert>
                   ) : null}
                   {data &&
