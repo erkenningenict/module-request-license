@@ -3,7 +3,10 @@ import * as React from 'react';
 import { LicenseSteps } from '../../../shared/Model';
 import { isValidDocumentFile } from '../../../shared/validation/File';
 
-import { Alert, Button, Col, Row } from '@erkenningen/ui';
+import { Alert } from '@erkenningen/ui/components/alert';
+import { Button } from '@erkenningen/ui/components/button';
+import { Col } from '@erkenningen/ui/layout/col';
+import { Row } from '@erkenningen/ui/layout/row';
 
 import FormItem from '../../../components/ui/FormItem';
 import FormStep from '../../../components/ui/FormStep';
@@ -12,6 +15,7 @@ class Document extends FormStep {
   private inputRef1: React.RefObject<HTMLInputElement>;
   private inputRef2: React.RefObject<HTMLInputElement>;
   private inputRef3: React.RefObject<HTMLInputElement>;
+  private acceptedFiles = '.pdf,.docx,.jpg,.jpeg,.png';
 
   constructor(props: any) {
     super(props);
@@ -34,7 +38,11 @@ class Document extends FormStep {
       <>
         <Row>
           <Col>
-            <Alert type="info">Upload hier uw diploma, cijferlijst en legitimatie.</Alert>
+            <Alert type="info">
+              Upload hier uw diploma, cijferlijst{' '}
+              {!this.props.values.FormOptions.isLoggedIn ? '' : 'en legitimatie'}. Toegestane
+              bestandsformaten zijn: pdf, docx, jpg, jpeg en png.
+            </Alert>
           </Col>
         </Row>
         <Row>
@@ -51,6 +59,7 @@ class Document extends FormStep {
               onChange={this.onFile1Change}
               style={{ display: 'none' }}
               ref={this.inputRef1}
+              accept={this.acceptedFiles}
             />
             <span>
               <i>
@@ -76,6 +85,7 @@ class Document extends FormStep {
               onChange={this.onFile2Change}
               style={{ display: 'none' }}
               ref={this.inputRef2}
+              accept={this.acceptedFiles}
             />
             <span>
               <i>
@@ -102,6 +112,7 @@ class Document extends FormStep {
                 onChange={this.onFile3Change}
                 style={{ display: 'none' }}
                 ref={this.inputRef3}
+                accept={this.acceptedFiles}
               />
               <span>
                 <i>

@@ -1,7 +1,9 @@
 import * as React from 'react';
 import Moment from 'react-moment';
 
-import { Alert, Col, Row } from '@erkenningen/ui';
+import { Alert } from '@erkenningen/ui/components/alert';
+import { Col } from '@erkenningen/ui/layout/col';
+import { Row } from '@erkenningen/ui/layout/row';
 
 import FormStep from '../../../components/ui/FormStep';
 

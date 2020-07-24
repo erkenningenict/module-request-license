@@ -3,7 +3,7 @@ import * as React from 'react';
 import { FormikProps } from 'formik';
 import { default as moment } from 'moment';
 
-import { Datepicker } from '@erkenningen/ui';
+import { Datepicker } from '@erkenningen/ui/components/datepicker';
 
 import FormItem from './FormItem';
 

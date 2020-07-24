@@ -1,6 +1,9 @@
 import * as React from 'react';
 
-import { Alert, Button, Col, Row } from '@erkenningen/ui';
+import { Alert } from '@erkenningen/ui/components/alert';
+import { Button } from '@erkenningen/ui/components/button';
+import { Col } from '@erkenningen/ui/layout/col';
+import { Row } from '@erkenningen/ui/layout/row';
 
 import FormCalendar from '../../../components/ui/FormCalendar';
 import FormSelectQuery from '../../../components/ui/FormSelectQuery';

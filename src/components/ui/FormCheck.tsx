@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { Checkbox, Spinner } from '@erkenningen/ui';
+import { Checkbox } from '@erkenningen/ui/components/checkbox';
+import { Spinner } from '@erkenningen/ui/components/spinner';
 import { FormikProps } from 'formik';
 
 import FormItem from './FormItem';

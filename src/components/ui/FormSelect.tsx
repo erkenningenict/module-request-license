@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { Select, Spinner } from '@erkenningen/ui';
+import { Select } from '@erkenningen/ui/components/select';
+import { Spinner } from '@erkenningen/ui/components/spinner';
 import { FormikProps } from 'formik';
 
 import { validateField } from '../../shared/validation/Form';
@@ -57,6 +58,7 @@ class FormSelect extends React.Component<IFormSelectProps, {}> {
             onChange={handleChange}
             disabled={this.props.readonly}
             filter={this.props.filter}
+            className="w-100"
           />
         )}
       </FormItem>

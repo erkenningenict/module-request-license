@@ -5,9 +5,11 @@ import { LicenseSteps } from '../../shared/Model';
 import { REQUEST_LICENSE } from '../../shared/Mutations';
 import { MY_PERSON_QUERY } from '../../shared/Queries';
 
+import { Alert } from '@erkenningen/ui/components/alert';
+import { Col } from '@erkenningen/ui/layout/col';
+import { Panel } from '@erkenningen/ui/layout/panel';
+import { Row } from '@erkenningen/ui/layout/row';
 import { Formik, FormikActions, FormikProps } from 'formik';
-
-import { Alert, Col, Panel, Row } from '@erkenningen/ui';
 
 import Approval from '../../features/LicenseForm/Approval/Approval';
 import BSN from '../../features/LicenseForm/BSN/BSN';
@@ -177,7 +179,7 @@ class LicenseForm extends React.Component<{}, ILicenseFormState> {
           </Panel>
         ) : null}
         {this.state.currentStep === LicenseSteps.Document ? (
-          <Panel title="Diploma, cijferlijst en legitimatie">
+          <Panel title="Upload benodigde documenten">
             <Document {...props} />
           </Panel>
         ) : null}

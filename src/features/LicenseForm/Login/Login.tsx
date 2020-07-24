@@ -2,7 +2,9 @@ import * as React from 'react';
 
 import { LicenseSteps } from '../../../shared/Model';
 
-import { Button, Col, Row } from '@erkenningen/ui';
+import { Button } from '@erkenningen/ui/components/button';
+import { Col } from '@erkenningen/ui/layout/col';
+import { Row } from '@erkenningen/ui/layout/row';
 
 import { ERKENNINGEN_LOGIN_URL } from '@erkenningen/config';
 import FormCheck from '../../../components/ui/FormCheck';

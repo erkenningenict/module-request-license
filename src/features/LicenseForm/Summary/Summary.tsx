@@ -3,7 +3,11 @@ import * as React from 'react';
 import { Query } from 'react-apollo';
 import Moment from 'react-moment';
 
-import { Alert, Button, Col, Row, Spinner } from '@erkenningen/ui';
+import { Alert } from '@erkenningen/ui/components/alert';
+import { Button } from '@erkenningen/ui/components/button';
+import { Spinner } from '@erkenningen/ui/components/spinner';
+import { Col } from '@erkenningen/ui/layout/col';
+import { Row } from '@erkenningen/ui/layout/row';
 
 import FormStep from '../../../components/ui/FormStep';
 

@@ -1,6 +1,8 @@
 import * as React from 'react';
 
-import { Button, Col, Row } from '@erkenningen/ui';
+import { Button } from '@erkenningen/ui/components/button';
+import { Col } from '@erkenningen/ui/layout/col';
+import { Row } from '@erkenningen/ui/layout/row';
 
 import FormSelect from '../../../components/ui/FormSelect';
 import FormStep from '../../../components/ui/FormStep';

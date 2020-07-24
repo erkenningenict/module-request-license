@@ -1,6 +1,6 @@
 // Add IE11 support
-import 'core-js/es6/map';
-import 'core-js/es6/set';
+import 'core-js/es/map';
+import 'core-js/es/set';
 import 'es6-shim';
 import 'react-app-polyfill/ie11';
 
@@ -15,6 +15,7 @@ import { ApolloProvider } from 'react-apollo';
 
 import App from './App';
 
+import { ThemeBureauErkenningen } from '@erkenningen/ui/layout/theme';
 import './index.css';
 
 const cache = new InMemoryCache();
@@ -29,7 +30,9 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <ThemeBureauErkenningen>
+      <App />
+    </ThemeBureauErkenningen>
   </ApolloProvider>,
   document.getElementById('root'),
 );

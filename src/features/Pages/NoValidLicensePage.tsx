@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { Alert, Panel } from '@erkenningen/ui';
+import { Alert } from '@erkenningen/ui/components/alert';
+import { Panel } from '@erkenningen/ui/layout/panel';
 
 class NoValidLicensePage extends React.Component<{}, {}> {
   constructor(props: any) {
