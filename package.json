@@ -25,7 +25,8 @@
     "react-moment": "^0.8.1",
     "react-router-dom": "^4.3.1",
     "react-transition-group": "2.2.1",
-    "yup": "^0.26.6"
+    "yup": "^0.26.6",
+    "typescript": "^2.9.2"
   },
   "devDependencies": {
     "@types/apollo-upload-client": "^8.1.0",
@@ -47,8 +48,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.3.1",
     "tslint-react": "^4.0.0",
-    "tslint-react-hooks": "^2.1.1",
-    "typescript": "^2.9.2"
+    "tslint-react-hooks": "^2.1.1"
   },
   "scripts": {
     "start": "npx react-scripts start",
