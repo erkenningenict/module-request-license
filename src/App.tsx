@@ -14,10 +14,6 @@ import { ERKENNINGEN_SITE_TYPE } from '@erkenningen/config';
 import './App.css';
 
 class App extends React.Component<{}, {}> {
-  constructor(props: any) {
-    super(props);
-  }
-
   public render() {
     return (
       <ThemeContext.Provider value={{ mode: ERKENNINGEN_SITE_TYPE }}>

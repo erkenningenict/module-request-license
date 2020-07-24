@@ -23,10 +23,6 @@ interface IFormSelectProps {
 }
 
 class FormSelect extends React.Component<IFormSelectProps, {}> {
-  constructor(props: any) {
-    super(props);
-  }
-
   public render() {
     const handleChange = (event: any) => {
       if (this.props.form && this.props.name) {

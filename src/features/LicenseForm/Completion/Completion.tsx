@@ -8,10 +8,6 @@ import { Row } from '@erkenningen/ui/layout/row';
 import FormStep from '../../../components/ui/FormStep';
 
 class Completion extends FormStep {
-  constructor(props: any) {
-    super(props);
-  }
-
   public render() {
     return this.props.values.licenseRequestResult ? (
       <>
@@ -20,14 +16,17 @@ class Completion extends FormStep {
             <Alert type="info">
               <p>
                 Nadat de aanvraag positief is beoordeeld en de betaling verwerkt, ontvangt u het
-                vakbekwaamheidsbewijs "{this.props.values.FormOptions.Certificaat
+                vakbekwaamheidsbewijs "
+                {this.props.values.FormOptions.Certificaat
                   ? this.props.values.FormOptions.Certificaat.Naam
-                  : ''}" met als ingangsdatum{' '}
+                  : ''}
+                " met als ingangsdatum{' '}
                 {this.props.values.FormOptions.ExamDate ? (
                   <Moment format="DD-MM-YYYY">
                     {this.props.values.FormOptions.ExamDate.toISOString()}
                   </Moment>
-                ) : null}.
+                ) : null}
+                .
               </p>
               <p>
                 Wanneer de beoordeling van bijgevoegde documenten vragen oproept, wordt contact met
@@ -45,7 +44,11 @@ class Completion extends FormStep {
             </p>
             <p>
               Uw aanvraag document in PDF kunt u{' '}
-              <a href={this.props.values.licenseRequestResult.requestFormPdfLink} target="_blank">
+              <a
+                rel="noopener noreferrer"
+                href={this.props.values.licenseRequestResult.requestFormPdfLink}
+                target="_blank"
+              >
                 hier
               </a>{' '}
               downloaden
@@ -62,9 +65,7 @@ class Completion extends FormStep {
     }
 
     return {
-      __html: `<a href="#" onclick="${
-        this.props.values.licenseRequestResult.invoiceLink
-      };return false;">hier</a>`,
+      __html: `<a href="#" onclick="${this.props.values.licenseRequestResult.invoiceLink};return false;">hier</a>`,
     };
   }
 }

@@ -4,10 +4,6 @@ import { Alert } from '@erkenningen/ui/components/alert';
 import { Panel } from '@erkenningen/ui/layout/panel';
 
 class NoValidLicensePage extends React.Component<{}, {}> {
-  constructor(props: any) {
-    super(props);
-  }
-
   public render() {
     return (
       <Panel title="Geen geldige licentie">
@@ -17,7 +13,8 @@ class NoValidLicensePage extends React.Component<{}, {}> {
           U kunt zich inschrijven bij een HBO instelling voor opleiding "Adviseren Gewasbescherming"
           <br />
           <br />
-          De volgende scholen bieden deze opleiding aan:<br />
+          De volgende scholen bieden deze opleiding aan:
+          <br />
           <table className="table table-striped">
             <tbody>
               <tr>
