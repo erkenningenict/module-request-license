@@ -34,5 +34,5 @@ ReactDOM.render(
       <App />
     </ThemeBureauErkenningen>
   </ApolloProvider>,
-  document.getElementById('root'),
+  document.getElementById('erkenningen-module-request-license'),
 );
