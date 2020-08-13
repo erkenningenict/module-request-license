@@ -14,7 +14,7 @@ interface IFormSelectProps {
   name?: string;
   value?: any;
   readonly?: boolean;
-  options: Array<{ label: string; value: any }>;
+  options: Array<{ label: string; value: any; item?: any }>;
   placeholder?: string;
   onChange?: (e: any) => void;
   form?: FormikProps<any>;
@@ -26,10 +26,13 @@ class FormSelect extends React.Component<IFormSelectProps, {}> {
   public render() {
     const handleChange = (event: any) => {
       if (this.props.form && this.props.name) {
-        this.props.form.setFieldValue(this.props.name, event.value);
+        const item = this.props.options.find((o) => o.value === event.value);
+        const itemValue = item && item.item ? item.item : event.value;
+
+        this.props.form.setFieldValue(this.props.name, itemValue);
         this.props.form.setFieldTouched(this.props.name, true);
 
-        validateField(this.props.form, this.props.name, event.value);
+        validateField(this.props.form, this.props.name, itemValue);
       }
       if (this.props.onChange) {
         this.props.onChange(event);
@@ -73,6 +76,19 @@ class FormSelect extends React.Component<IFormSelectProps, {}> {
       for (const part of parts) {
         value = value[part];
       }
+
+      // Map value to option if available
+      const option = this.props.options.find((o) => {
+        if (!o.item) {
+          return false;
+        }
+        return JSON.stringify(o.item) === JSON.stringify(value);
+      });
+
+      if (option) {
+        return option.value;
+      }
+
       return value;
     }
 

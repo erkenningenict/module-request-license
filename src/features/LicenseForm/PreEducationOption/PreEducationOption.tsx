@@ -38,7 +38,8 @@ class PreEducationOption extends FormStep {
               (items &&
                 items.map((item: any) => ({
                   label: item.Naam,
-                  value: item,
+                  value: item.VooropleidingCategorieID,
+                  item,
                 }))) ||
               [];
 
@@ -81,7 +82,8 @@ class PreEducationOption extends FormStep {
                     )
                     .map((item: any) => ({
                       label: `${item.Code} | ${item.Naam}`,
-                      value: item,
+                      value: item.VooropleidingID,
+                      item,
                     }))
                 : [];
 
@@ -115,7 +117,8 @@ class PreEducationOption extends FormStep {
               const selectOptions: any[] = items
                 ? items.map((item: any) => ({
                     label: item.Naam,
-                    value: item,
+                    value: item.CertificaatID,
+                    item,
                   }))
                 : [];
 
