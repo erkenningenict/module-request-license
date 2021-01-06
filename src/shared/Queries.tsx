@@ -87,7 +87,7 @@ export const MY_PERSON_QUERY = gql`
           Email
         }
       }
-      Certificeringen(alleenGeldig: true, perDatum: 1546300800000) {
+      Certificeringen(alleenGeldig: true) {
         CertificeringID
         Nummer
         BeginDatum
