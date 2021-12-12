@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { LicenseSteps } from '../../../shared/Model';
 
@@ -6,84 +6,79 @@ import { Button } from '@erkenningen/ui/components/button';
 import { Col } from '@erkenningen/ui/layout/col';
 import { Row } from '@erkenningen/ui/layout/row';
 
+import ILicenseFormValues from '../ILicenseFormValues';
+import { FormikProps } from 'formik';
 import FormCheck from '../../../components/ui/FormCheck';
-import FormStep from '../../../components/ui/FormStep';
 
-class CountryCheck extends FormStep {
-  constructor(props: any) {
-    super(props);
+interface CountryCheckProps {
+  form: FormikProps<ILicenseFormValues>;
+  setStep: (step: LicenseSteps) => void;
+}
 
-    this.prevStep = this.prevStep.bind(this);
-    this.nextStep = this.nextStep.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  public render() {
-    return (
-      <>
-        <Row>
-          <Col>
-            <FormCheck
-              id="residentNl"
-              label="Woont u in Nederland?"
-              name="FormOptions.dutchResident"
-              form={this.props}
-              help={
-                'U woont en werkt langer dan 4 maanden in Nederland' +
-                ' en u bent niet opgenomen in de Registratie Niet-Ingezetene (RNI).'
-              }
-            />
-          </Col>
-        </Row>
-        {this.props.values.FormOptions.dutchResident ? (
-          <Row>
-            <Col>
-              <FormCheck
-                id="hasBsn"
-                label="Heeft u een BSN?"
-                name="FormOptions.hasBsn"
-                form={this.props}
-              />
-            </Col>
-          </Row>
-        ) : null}
-        {!this.props.values.FormOptions.isLoggedIn ? (
-          <Button onClick={this.prevStep} label="Vorige" icon="fa fa-chevron-left" iconPos="left" />
-        ) : null}
-        <Button
-          onClick={this.onSubmit}
-          label="Volgende"
-          icon="fa fa-chevron-right"
-          iconPos="right"
-          disabled={this.props.isSubmitting}
-        />
-      </>
-    );
-  }
-
-  private onSubmit() {
-    if (!this.validate()) {
+const CountryCheck: React.FC<CountryCheckProps> = (props) => {
+  const nextStep = () => {
+    if (props.form.values.FormOptions.dutchResident && props.form.values.FormOptions.hasBsn) {
+      props.setStep(LicenseSteps.BSN);
+    } else {
+      props.setStep(LicenseSteps.PersonalInfo);
+    }
+  };
+  const onSubmit = () => {
+    if (!validate()) {
       return;
     }
 
-    this.nextStep();
-  }
+    nextStep();
+  };
 
-  private nextStep() {
-    if (this.props.values.FormOptions.dutchResident && this.props.values.FormOptions.hasBsn) {
-      this.setStep(LicenseSteps.BSN);
-    } else {
-      this.setStep(LicenseSteps.PersonalInfo);
-    }
-  }
+  const prevStep = () => {
+    props.setStep(LicenseSteps.Login);
+  };
 
-  private prevStep() {
-    this.setStep(LicenseSteps.Login);
-  }
-
-  private validate(): boolean {
+  const validate = (): boolean => {
     return true;
-  }
-}
+  };
+
+  return (
+    <>
+      <Row>
+        <Col>
+          <FormCheck
+            id="residentNl"
+            label="Woont u in Nederland?"
+            name="FormOptions.dutchResident"
+            form={props.form}
+            help={
+              'U woont en werkt langer dan 4 maanden in Nederland' +
+              ' en u bent niet opgenomen in de Registratie Niet-Ingezetene (RNI).'
+            }
+          />
+        </Col>
+      </Row>
+      {props.form.values.FormOptions.dutchResident ? (
+        <Row>
+          <Col>
+            <FormCheck
+              id="hasBsn"
+              label="Heeft u een BSN?"
+              name="FormOptions.hasBsn"
+              form={props.form}
+            />
+          </Col>
+        </Row>
+      ) : null}
+      {!props.form.values.FormOptions.isLoggedIn ? (
+        <Button onClick={prevStep} label="Vorige" icon="fa fa-chevron-left" iconPos="left" />
+      ) : null}
+      <Button
+        onClick={onSubmit}
+        label="Volgende"
+        icon="fa fa-chevron-right"
+        iconPos="right"
+        disabled={props.form.isSubmitting}
+      />
+    </>
+  );
+};
 
 export default CountryCheck;

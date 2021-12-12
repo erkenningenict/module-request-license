@@ -7,7 +7,7 @@ export function isValidBSN(bsn?: number): boolean {
     bsnString = `0${bsn}`;
   }
 
-  let checksum: number = 0;
+  let checksum = 0;
   for (let i = 0; i < 8; i++) {
     checksum = checksum + parseInt(bsnString.charAt(i), 10) * (9 - i);
   }

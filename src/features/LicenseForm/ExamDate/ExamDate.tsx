@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { LicenseSteps } from '../../../shared/Model';
 import { validateField } from '../../../shared/validation/Form';
@@ -8,73 +8,69 @@ import { Button } from '@erkenningen/ui/components/button';
 import { Col } from '@erkenningen/ui/layout/col';
 import { Row } from '@erkenningen/ui/layout/row';
 
-import FormCalendar from '../../../components/ui/FormCalendar';
-import FormStep from '../../../components/ui/FormStep';
+import { FormCalendar } from '@erkenningen/ui/components/form';
+import { FormikProps } from 'formik';
+import ILicenseFormValues from '../ILicenseFormValues';
 
-class ExamDate extends FormStep {
-  constructor(props: any) {
-    super(props);
+interface ExamDateProps {
+  form: FormikProps<ILicenseFormValues>;
+  setStep: (step: LicenseSteps) => void;
+}
 
-    this.onSubmit = this.onSubmit.bind(this);
-    this.prevStep = this.prevStep.bind(this);
-    this.nextStep = this.nextStep.bind(this);
-  }
-
-  public render() {
-    return (
-      <>
-        <Row>
-          <Col>
-            <Alert type="info">
-              Geef aan wanneer uw examen behaald is.{' '}
-              {this.props.values.FormOptions.Vooropleiding &&
-              this.props.values.FormOptions.Vooropleiding.Code === '30.02'
-                ? 'De datum moet tussen 1 januari 2019 en vandaag liggen.'
-                : 'De datum moet liggen tussen vandaag en maximaal 5 jaar in het verleden.'}
-            </Alert>
-          </Col>
-        </Row>
-        <FormCalendar
-          id="examDate"
-          label="Datum examen behaald"
-          name="FormOptions.ExamDate"
-          placeholder="dd-mm-jjjj"
-          form={this.props}
-        />
-        <Button onClick={this.prevStep} label="Vorige" icon="fa fa-chevron-left" iconPos="left" />
-        <Button
-          onClick={this.onSubmit}
-          disabled={this.props.isSubmitting}
-          label="Volgende"
-          icon="fa fa-chevron-right"
-          iconPos="right"
-        />
-      </>
-    );
-  }
-
-  private onSubmit() {
-    if (this.validate()) {
-      this.nextStep();
-    }
-  }
-
-  private validate(): boolean {
-    return validateField(this.props, 'FormOptions.ExamDate');
-  }
-
-  private prevStep() {
-    this.setStep(LicenseSteps.PreEducationOption);
-  }
-
-  private nextStep() {
-    this.setStep(
-      this.props.values.FormOptions.Vooropleiding &&
-      ['30.02', '30.03'].indexOf(this.props.values.FormOptions.Vooropleiding.Code) > -1
+const ExamDate: React.FC<ExamDateProps> = (props) => {
+  const nextStep = () => {
+    props.setStep(
+      props.form.values.FormOptions.Vooropleiding &&
+        ['30.02', '30.03'].indexOf(props.form.values.FormOptions.Vooropleiding.Code) > -1
         ? LicenseSteps.DocumentAG
         : LicenseSteps.Document,
     );
-  }
-}
+  };
+
+  const validate = (): boolean => {
+    return validateField(props.form, 'FormOptions.ExamDate');
+  };
+
+  const onSubmit = () => {
+    if (validate()) {
+      nextStep();
+    }
+  };
+
+  const prevStep = () => {
+    props.setStep(LicenseSteps.PreEducationOption);
+  };
+
+  return (
+    <>
+      <Row>
+        <Col>
+          <Alert type="info">
+            Geef aan wanneer uw examen behaald is.{' '}
+            {props.form.values.FormOptions.Vooropleiding &&
+            props.form.values.FormOptions.Vooropleiding.Code === '30.02'
+              ? 'De datum moet tussen 1 januari 2019 en vandaag liggen.'
+              : 'De datum moet liggen tussen vandaag en maximaal 5 jaar in het verleden.'}
+          </Alert>
+        </Col>
+      </Row>
+      <FormCalendar
+        id="examDate"
+        label="Datum examen behaald"
+        name="FormOptions.ExamDate"
+        placeholder="dd-mm-jjjj"
+        formItemProps={props.form}
+      />
+      <Button onClick={prevStep} label="Vorige" icon="fa fa-chevron-left" iconPos="left" />
+      <Button
+        onClick={onSubmit}
+        disabled={props.form.isSubmitting}
+        label="Volgende"
+        icon="fa fa-chevron-right"
+        iconPos="right"
+      />
+    </>
+  );
+};
 
 export default ExamDate;

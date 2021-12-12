@@ -1,5 +1,5 @@
+import add from 'date-fns/add';
 import { FormikProps } from 'formik';
-import { default as moment } from 'moment';
 import * as Yup from 'yup';
 
 import ILicenseFormValues from '../../features/LicenseForm/ILicenseFormValues';
@@ -48,9 +48,7 @@ const ValidationSchema = Yup.object().shape({
         }),
       Woonplaats: Yup.string().required(MessageRequired),
       Land: Yup.string().required(MessageRequired),
-      Email: Yup.string()
-        .required(MessageRequired)
-        .email('E-mailadres is incorrect'),
+      Email: Yup.string().required(MessageRequired).email('E-mailadres is incorrect'),
     }),
   }),
   FormOptions: Yup.object().shape({
@@ -58,12 +56,7 @@ const ValidationSchema = Yup.object().shape({
       .strict(true)
       .typeError('Ongeldige datum')
       .required(MessageRequired)
-      .min(
-        moment()
-          .subtract(5, 'years')
-          .toDate(),
-        'Datum mag maximaal 5 jaar in het verleden liggen',
-      )
+      .min(add(new Date(), { years: -5 }), 'Datum mag maximaal 5 jaar in het verleden liggen')
       .max(new Date(), 'Datum mag niet in de toekomst liggen')
       .when('Vooropleiding.Code', {
         is: '30.02', // Adviseren Gewasbeschermin g HBO Certificaat
@@ -71,9 +64,9 @@ const ValidationSchema = Yup.object().shape({
           .strict(true)
           .min(new Date(2019, 0, 1), 'Datum mag niet voor 1 januari 2019 liggen'),
       }),
-    VooropleidingCategorie: Yup.string().required('Selecteer een opleidingsland'),
-    Vooropleiding: Yup.string().required('Selecteer een vooropleiding'),
-    Certificaat: Yup.string().required('Selecteer een certificering'),
+    VooropleidingCategorieID: Yup.string().required('Selecteer een opleidingsland'),
+    VooropleidingID: Yup.string().required('Selecteer een vooropleiding'),
+    CertificaatID: Yup.string().required('Selecteer een certificering'),
   }),
 });
 
@@ -91,8 +84,8 @@ export function validateField(
     form.setFieldError(field, '');
     return true;
   } catch (validationError) {
-    if (validationError.errors) {
-      form.setFieldError(field, validationError.errors[0]);
+    if ((validationError as any).errors) {
+      form.setFieldError(field, (validationError as any).errors[0]);
     }
   }
   return false;

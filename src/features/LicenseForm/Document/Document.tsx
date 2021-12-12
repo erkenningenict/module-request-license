@@ -7,210 +7,184 @@ import { Alert } from '@erkenningen/ui/components/alert';
 import { Button } from '@erkenningen/ui/components/button';
 import { Col } from '@erkenningen/ui/layout/col';
 import { Row } from '@erkenningen/ui/layout/row';
+import { FormItem } from '@erkenningen/ui/components/form';
 
-import FormItem from '../../../components/ui/FormItem';
-import FormStep from '../../../components/ui/FormStep';
+import { FormikProps } from 'formik';
+import ILicenseFormValues from '../ILicenseFormValues';
 
-class Document extends FormStep {
-  private inputRef1: React.RefObject<HTMLInputElement>;
-  private inputRef2: React.RefObject<HTMLInputElement>;
-  private inputRef3: React.RefObject<HTMLInputElement>;
-  private acceptedFiles = '.pdf,.docx,.jpg,.jpeg,.png';
+interface DocumentProps {
+  form: FormikProps<ILicenseFormValues>;
+  setStep: (step: LicenseSteps) => void;
+}
 
-  constructor(props: any) {
-    super(props);
-    this.inputRef1 = React.createRef();
-    this.inputRef2 = React.createRef();
-    this.inputRef3 = React.createRef();
-    this.onFile1Change = this.onFile1Change.bind(this);
-    this.onFile2Change = this.onFile2Change.bind(this);
-    this.onFile3Change = this.onFile3Change.bind(this);
-    this.onFile1Click = this.onFile1Click.bind(this);
-    this.onFile2Click = this.onFile2Click.bind(this);
-    this.onFile3Click = this.onFile3Click.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.prevStep = this.prevStep.bind(this);
-    this.nextStep = this.nextStep.bind(this);
-  }
+const Document: React.FC<DocumentProps> = (props) => {
+  const inputRef1 = React.useRef<HTMLInputElement>(null);
+  const inputRef2 = React.useRef<HTMLInputElement>(null);
+  const inputRef3 = React.useRef<HTMLInputElement>(null);
+  const acceptedFiles = '.pdf,.docx,.jpg,.jpeg,.png';
 
-  public render() {
-    return (
-      <>
-        <Row>
-          <Col>
-            <Alert type="info">
-              Upload hier uw diploma, cijferlijst{' '}
-              {!this.props.values.FormOptions.isLoggedIn ? '' : 'en legitimatie'}. Toegestane
-              bestandsformaten zijn: pdf, docx, jpg, jpeg en png.
-            </Alert>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Button
-              label="Selecteer uw diploma"
-              icon="pi pi-plus"
-              className="p-button-secondary"
-              onClick={this.onFile1Click}
-            />
-            <input
-              name="file1"
-              type="file"
-              onChange={this.onFile1Change}
-              style={{ display: 'none' }}
-              ref={this.inputRef1}
-              accept={this.acceptedFiles}
-            />
-            <span>
-              <i>
-                {this.props.values.FormOptions.File1
-                  ? this.props.values.FormOptions.File1.name
-                  : ''}
-              </i>
-            </span>
-            <FormItem form={this.props} name="FormOptions.File1" />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Button
-              label="Selecteer uw cijferlijst"
-              icon="pi pi-plus"
-              className="p-button-secondary"
-              onClick={this.onFile2Click}
-            />
-            <input
-              name="file2"
-              type="file"
-              onChange={this.onFile2Change}
-              style={{ display: 'none' }}
-              ref={this.inputRef2}
-              accept={this.acceptedFiles}
-            />
-            <span>
-              <i>
-                {this.props.values.FormOptions.File2
-                  ? this.props.values.FormOptions.File2.name
-                  : ''}
-              </i>
-            </span>
-            <FormItem form={this.props} name="FormOptions.File2" />
-          </Col>
-        </Row>
-        {!this.props.values.FormOptions.isLoggedIn ? (
-          <Row>
-            <Col>
-              <Button
-                label="Selecteer uw legitimatie"
-                icon="pi pi-plus"
-                className="p-button-secondary"
-                onClick={this.onFile3Click}
-              />
-              <input
-                name="file3"
-                type="file"
-                onChange={this.onFile3Change}
-                style={{ display: 'none' }}
-                ref={this.inputRef3}
-                accept={this.acceptedFiles}
-              />
-              <span>
-                <i>
-                  {this.props.values.FormOptions.File3
-                    ? this.props.values.FormOptions.File3.name
-                    : ''}
-                </i>
-              </span>
-              <FormItem form={this.props} name="FormOptions.File3" />
-            </Col>
-          </Row>
-        ) : null}
-        <Row>
-          <Col>&nbsp;</Col>
-        </Row>
-        <Row>
-          <Col>
-            <Button
-              onClick={this.prevStep}
-              label="Vorige"
-              icon="fa fa-chevron-left"
-              iconPos="left"
-            />
-            <Button
-              onClick={this.onSubmit}
-              label="Volgende"
-              icon="fa fa-chevron-right"
-              iconPos="right"
-            />
-          </Col>
-        </Row>
-      </>
-    );
-  }
-
-  private onFile1Click(): void {
-    if (this.inputRef1.current) {
-      this.inputRef1.current.click();
+  const onFile1Click = (): void => {
+    if (inputRef1.current) {
+      inputRef1.current.click();
     }
-  }
+  };
 
-  private onFile2Click(): void {
-    if (this.inputRef2.current) {
-      this.inputRef2.current.click();
+  const onFile2Click = (): void => {
+    if (inputRef2.current) {
+      inputRef2.current.click();
     }
-  }
+  };
 
-  private onFile3Click(): void {
-    if (this.inputRef3.current) {
-      this.inputRef3.current.click();
+  const onFile3Click = (): void => {
+    if (inputRef3.current) {
+      inputRef3.current.click();
     }
-  }
+  };
 
-  private onFile1Change(event: any): void {
-    this.props.setFieldValue('FormOptions.File1', event.currentTarget.files[0]);
-  }
+  const onFile1Change = (event: any): void => {
+    props.form.setFieldValue('FormOptions.File1', event.currentTarget.files[0]);
+  };
 
-  private onFile2Change(event: any): void {
-    this.props.setFieldValue('FormOptions.File2', event.currentTarget.files[0]);
-  }
+  const onFile2Change = (event: any): void => {
+    props.form.setFieldValue('FormOptions.File2', event.currentTarget.files[0]);
+  };
 
-  private onFile3Change(event: any): void {
-    this.props.setFieldValue('FormOptions.File3', event.currentTarget.files[0]);
-  }
+  const onFile3Change = (event: any): void => {
+    props.form.setFieldValue('FormOptions.File3', event.currentTarget.files[0]);
+  };
 
-  private onSubmit() {
-    if (this.validate()) {
-      this.nextStep();
+  const onSubmit = () => {
+    if (validate()) {
+      nextStep();
     }
-  }
+  };
 
-  private validate(): boolean {
+  const validate = (): boolean => {
     let isValid = true;
 
-    const file1ValidationResult = isValidDocumentFile(this.props.values.FormOptions.File1);
-    this.props.setFieldError('FormOptions.File1', file1ValidationResult);
+    const file1ValidationResult = isValidDocumentFile(props.form.values.FormOptions.File1);
+    props.form.setFieldError('FormOptions.File1', file1ValidationResult);
     isValid = isValid && file1ValidationResult === '';
 
-    const file2ValidationResult = isValidDocumentFile(this.props.values.FormOptions.File2);
-    this.props.setFieldError('FormOptions.File2', file2ValidationResult);
+    const file2ValidationResult = isValidDocumentFile(props.form.values.FormOptions.File2);
+    props.form.setFieldError('FormOptions.File2', file2ValidationResult);
     isValid = isValid && file2ValidationResult === '';
 
-    if (!this.props.values.FormOptions.isLoggedIn) {
-      const file3ValidationResult = isValidDocumentFile(this.props.values.FormOptions.File3);
-      this.props.setFieldError('FormOptions.File3', file3ValidationResult);
+    if (!props.form.values.FormOptions.isLoggedIn) {
+      const file3ValidationResult = isValidDocumentFile(props.form.values.FormOptions.File3);
+      props.form.setFieldError('FormOptions.File3', file3ValidationResult);
       isValid = isValid && file3ValidationResult === '';
     }
 
     return isValid;
-  }
+  };
 
-  private prevStep(): void {
-    this.setStep(LicenseSteps.ExamDate);
-  }
+  const prevStep = (): void => {
+    props.setStep(LicenseSteps.ExamDate);
+  };
 
-  private nextStep(): void {
-    this.setStep(LicenseSteps.Approval);
-  }
-}
+  const nextStep = (): void => {
+    props.setStep(LicenseSteps.Approval);
+  };
+
+  return (
+    <>
+      <Row>
+        <Col>
+          <Alert type="info">
+            Upload hier uw diploma, cijferlijst{' '}
+            {!props.form.values.FormOptions.isLoggedIn ? '' : 'en legitimatie'}. Toegestane
+            bestandsformaten zijn: pdf, docx, jpg, jpeg en png.
+          </Alert>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Button
+            label="Selecteer uw diploma"
+            icon="pi pi-plus"
+            className="p-button-secondary"
+            onClick={onFile1Click}
+          />
+          <input
+            name="file1"
+            type="file"
+            onChange={onFile1Change}
+            style={{ display: 'none' }}
+            ref={inputRef1}
+            accept={acceptedFiles}
+          />
+          <span>
+            <i>
+              {props.form.values.FormOptions.File1 ? props.form.values.FormOptions.File1.name : ''}
+            </i>
+          </span>
+          <FormItem form={props.form} name="FormOptions.File1" />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Button
+            label="Selecteer uw cijferlijst"
+            icon="pi pi-plus"
+            className="p-button-secondary"
+            onClick={onFile2Click}
+          />
+          <input
+            name="file2"
+            type="file"
+            onChange={onFile2Change}
+            style={{ display: 'none' }}
+            ref={inputRef2}
+            accept={acceptedFiles}
+          />
+          <span>
+            <i>
+              {props.form.values.FormOptions.File2 ? props.form.values.FormOptions.File2.name : ''}
+            </i>
+          </span>
+          <FormItem form={props.form} name="FormOptions.File2" />
+        </Col>
+      </Row>
+      {!props.form.values.FormOptions.isLoggedIn ? (
+        <Row>
+          <Col>
+            <Button
+              label="Selecteer uw legitimatie"
+              icon="pi pi-plus"
+              className="p-button-secondary"
+              onClick={onFile3Click}
+            />
+            <input
+              name="file3"
+              type="file"
+              onChange={onFile3Change}
+              style={{ display: 'none' }}
+              ref={inputRef3}
+              accept={acceptedFiles}
+            />
+            <span>
+              <i>
+                {props.form.values.FormOptions.File3
+                  ? props.form.values.FormOptions.File3.name
+                  : ''}
+              </i>
+            </span>
+            <FormItem form={props.form} name="FormOptions.File3" />
+          </Col>
+        </Row>
+      ) : null}
+      <Row>
+        <Col>&nbsp;</Col>
+      </Row>
+      <Row>
+        <Col>
+          <Button onClick={prevStep} label="Vorige" icon="fa fa-chevron-left" iconPos="left" />
+          <Button onClick={onSubmit} label="Volgende" icon="fa fa-chevron-right" iconPos="right" />
+        </Col>
+      </Row>
+    </>
+  );
+};
 
 export default Document;

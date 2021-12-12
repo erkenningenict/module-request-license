@@ -5,7 +5,7 @@ import { FormikProps } from 'formik';
 import ILicenseFormValues from '../../features/LicenseForm/ILicenseFormValues';
 import { LicenseSteps } from '../../shared/Model';
 
-class FormStep<T = {}> extends React.Component<FormikProps<ILicenseFormValues>, T> {
+class FormStep<T = any> extends React.Component<FormikProps<ILicenseFormValues>, T> {
   constructor(props: any) {
     super(props);
 

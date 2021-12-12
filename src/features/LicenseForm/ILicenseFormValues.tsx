@@ -1,8 +1,9 @@
-import { ICertificering, IFormOptions, IPersoon, LicenseSteps } from '../../shared/Model';
+import { Certificering, Persoon } from '../../generated/graphql';
+import { IFormOptions, LicenseSteps } from '../../shared/Model';
 
 export default interface ILicenseFormValues {
-  Persoon: IPersoon;
-  Certificeringen: ICertificering[];
+  Persoon: Persoon;
+  Certificeringen: Certificering[];
   FormOptions: IFormOptions;
   licenseRequestResult?: {
     VrijstellingsVerzoekID: number;

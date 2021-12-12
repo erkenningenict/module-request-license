@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { LicenseSteps } from '../../../shared/Model';
 
@@ -8,58 +8,53 @@ import { Row } from '@erkenningen/ui/layout/row';
 
 import { ERKENNINGEN_LOGIN_URL } from '@erkenningen/config';
 import FormCheck from '../../../components/ui/FormCheck';
-import FormStep from '../../../components/ui/FormStep';
+import { FormikProps } from 'formik';
+import ILicenseFormValues from '../ILicenseFormValues';
 
-class Login extends FormStep {
-  constructor(props: any) {
-    super(props);
+interface LoginProps {
+  form: FormikProps<ILicenseFormValues>;
+  setStep: (step: LicenseSteps) => void;
+}
 
-    this.onSubmit = this.onSubmit.bind(this);
+const Login: React.FC<LoginProps> = (props) => {
+  if (props.form.values.FormOptions.isLoggedIn) {
+    props.setStep(LicenseSteps.Email);
   }
 
-  public componentDidMount() {
-    if (this.props.values.FormOptions.isLoggedIn) {
-      this.setStep(LicenseSteps.Email);
-    }
-  }
-
-  public render() {
-    return (
-      <>
-        <Row>
-          <Col>
-            <FormCheck
-              id="hasAccount"
-              label="Heeft u een inlog account?"
-              name="FormOptions.hasAccount"
-              form={this.props}
-              help="Vink aan als u al een account bij Bureau Erkenningen heeft."
-            />
-          </Col>
-        </Row>
-        <Button
-          onClick={this.onSubmit}
-          label="Volgende"
-          icon="fa fa-chevron-right"
-          iconPos="right"
-          disabled={this.props.isSubmitting}
-        />
-      </>
-    );
-  }
-
-  private onSubmit(): void {
+  const onSubmit = (): void => {
     // If user has account, then redirect to DNN login
-    if (this.props.values.FormOptions.hasAccount) {
+    if (props.form.values.FormOptions.hasAccount) {
       window.location.href = ERKENNINGEN_LOGIN_URL || '/login';
       return;
     }
 
     // Go to next step
-    this.setStep(
-      this.props.values.FormOptions.isLoggedIn ? LicenseSteps.Email : LicenseSteps.CountryCheck,
+    props.setStep(
+      props.form.values.FormOptions.isLoggedIn ? LicenseSteps.Email : LicenseSteps.CountryCheck,
     );
-  }
-}
+  };
+  return (
+    <>
+      <Row>
+        <Col>
+          <FormCheck
+            id="hasAccount"
+            label="Heeft u een inlog account?"
+            name="FormOptions.hasAccount"
+            form={props.form}
+            help="Vink aan als u al een account bij Bureau Erkenningen heeft."
+          />
+        </Col>
+      </Row>
+      <Button
+        onClick={onSubmit}
+        label="Volgende"
+        icon="fa fa-chevron-right"
+        iconPos="right"
+        disabled={props.form.isSubmitting}
+      />
+    </>
+  );
+};
 
 export default Login;

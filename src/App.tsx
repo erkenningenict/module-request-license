@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 
 import { ThemeContext } from '@erkenningen/ui/layout/theme';
-import { HashRouter, Route } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 
 import LicenseForm from './features/LicenseForm/LicenseForm';
 import NoValidLicensePage from './features/Pages/NoValidLicensePage';
@@ -12,22 +12,23 @@ import 'primereact/resources/primereact.min.css';
 
 import { ERKENNINGEN_SITE_TYPE } from '@erkenningen/config';
 import './App.css';
+import { GrowlProvider } from '@erkenningen/ui/components/growl';
 
-class App extends React.Component<{}, {}> {
-  public render() {
-    return (
-      <ThemeContext.Provider value={{ mode: ERKENNINGEN_SITE_TYPE }}>
-        <div className="App">
+const App: React.FC = () => {
+  return (
+    <ThemeContext.Provider value={{ mode: ERKENNINGEN_SITE_TYPE }}>
+      <div className="App">
+        <GrowlProvider>
           <HashRouter>
-            <>
-              <Route path="/" component={LicenseForm} />
-              <Route path="/no-valid-license" component={NoValidLicensePage} />
-            </>
+            <Routes>
+              <Route path="/" element={<LicenseForm />} />
+              <Route path="/no-valid-license" element={<NoValidLicensePage />} />
+            </Routes>
           </HashRouter>
-        </div>
-      </ThemeContext.Provider>
-    );
-  }
-}
+        </GrowlProvider>
+      </div>
+    </ThemeContext.Provider>
+  );
+};
 
 export default App;
