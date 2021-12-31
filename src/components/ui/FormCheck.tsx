@@ -4,7 +4,7 @@ import { Checkbox } from '@erkenningen/ui/components/checkbox';
 import { Spinner } from '@erkenningen/ui/components/spinner';
 import { FormikProps } from 'formik';
 
-import FormItem from './FormItem';
+import { FormItem } from '@erkenningen/ui/components/form';
 
 interface IFormCheckProps {
   id: string;
@@ -19,7 +19,7 @@ interface IFormCheckProps {
   help?: string;
 }
 
-class FormCheck extends React.Component<IFormCheckProps, {}> {
+class FormCheck extends React.Component<IFormCheckProps, unknown> {
   public render() {
     const handleChange = (event: any) => {
       if (this.props.form && this.props.name) {

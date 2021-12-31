@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { validateField } from '../../../shared/validation/Form';
 
@@ -6,76 +6,70 @@ import { Alert } from '@erkenningen/ui/components/alert';
 import { Button } from '@erkenningen/ui/components/button';
 import { Col } from '@erkenningen/ui/layout/col';
 import { Row } from '@erkenningen/ui/layout/row';
-
-import FormStep from '../../../components/ui/FormStep';
-import FormText from '../../../components/ui/FormText';
+import { FormText } from '@erkenningen/ui/components/form';
 
 import { LicenseSteps } from '../../../shared/Model';
+import ILicenseFormValues from '../ILicenseFormValues';
+import { FormikProps } from 'formik';
 
-class Email extends FormStep {
-  constructor(props: any) {
-    super(props);
+interface EmailProps {
+  form: FormikProps<ILicenseFormValues>;
+  setStep: (step: LicenseSteps) => void;
+}
 
-    this.prevStep = this.prevStep.bind(this);
-    this.nextStep = this.nextStep.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
+const Email: React.FC<EmailProps> = (props) => {
+  const validate = (): boolean => {
+    return validateField(props.form, 'Persoon.Contactgegevens.Email');
+  };
 
-  public render() {
-    return (
-      <>
-        <Row>
-          <Col>
-            <Alert type="info">
-              {this.props.values.FormOptions.isLoggedIn
-                ? 'Controleer of uw e-mailadres nog actief en correct is.'
-                : 'Vul uw e-mailadres in.'}
-            </Alert>
-          </Col>
-        </Row>
-        <FormText
-          id="email"
-          label="E-mail"
-          keyfilter="email"
-          placeholder="E-mailadres"
-          name="Persoon.Contactgegevens.Email"
-          form={this.props}
-        />
-        {!this.props.values.FormOptions.isLoggedIn ? (
-          <Button onClick={this.prevStep} label="Vorige" icon="fa fa-chevron-left" iconPos="left" />
-        ) : null}
-        <Button
-          onClick={this.onSubmit}
-          disabled={this.props.isSubmitting}
-          label="Volgende"
-          icon="fa fa-chevron-right"
-          iconPos="right"
-        />
-      </>
-    );
-  }
+  const nextStep = (): void => {
+    props.setStep(LicenseSteps.PreEducationOption);
+  };
 
-  private onSubmit() {
-    if (this.validate()) {
-      this.nextStep();
+  const onSubmit = () => {
+    if (validate()) {
+      nextStep();
     }
-  }
+  };
 
-  private validate(): boolean {
-    return validateField(this.props, 'Persoon.Contactgegevens.Email');
-  }
-
-  private prevStep(): void {
-    this.setStep(
-      this.props.values.FormOptions.dutchResident && this.props.values.FormOptions.hasBsn
+  const prevStep = (): void => {
+    props.setStep(
+      props.form.values.FormOptions.dutchResident && props.form.values.FormOptions.hasBsn
         ? LicenseSteps.BSN
         : LicenseSteps.PersonalInfo,
     );
-  }
+  };
 
-  private nextStep(): void {
-    this.setStep(LicenseSteps.PreEducationOption);
-  }
-}
+  return (
+    <>
+      <Row>
+        <Col>
+          <Alert type="info">
+            {props.form.values.FormOptions.isLoggedIn
+              ? 'Controleer of uw e-mailadres nog actief en correct is.'
+              : 'Vul uw e-mailadres in.'}
+          </Alert>
+        </Col>
+      </Row>
+      <FormText
+        label="E-mail"
+        keyfilter="email"
+        placeholder="E-mailadres"
+        name="Persoon.Contactgegevens.Email"
+        formItemProps={props}
+      />
+      {!props.form.values.FormOptions.isLoggedIn ? (
+        <Button onClick={prevStep} label="Vorige" icon="fa fa-chevron-left" iconPos="left" />
+      ) : null}
+      <Button
+        onClick={onSubmit}
+        disabled={props.form.isSubmitting}
+        label="Volgende"
+        icon="fa fa-chevron-right"
+        iconPos="right"
+      />
+    </>
+  );
+};
 
 export default Email;

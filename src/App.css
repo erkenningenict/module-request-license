@@ -5,3 +5,7 @@
 .row-spacer .row {
   margin-bottom: 1em;
 }
+
+.p-checkbox.p-component {
+  margin-top: 0 !important;
+}

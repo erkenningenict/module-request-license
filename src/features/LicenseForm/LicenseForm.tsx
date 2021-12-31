@@ -1,261 +1,184 @@
-import * as React from 'react';
-
-import { Mutation } from 'react-apollo';
+import React, { useState } from 'react';
 import { LicenseSteps } from '../../shared/Model';
-import { REQUEST_LICENSE } from '../../shared/Mutations';
-import { MY_PERSON_QUERY } from '../../shared/Queries';
 
 import { Alert } from '@erkenningen/ui/components/alert';
 import { Col } from '@erkenningen/ui/layout/col';
 import { Panel } from '@erkenningen/ui/layout/panel';
 import { Row } from '@erkenningen/ui/layout/row';
-import { Formik, FormikActions, FormikProps } from 'formik';
+import { Formik, FormikProps } from 'formik';
 
-import Approval from '../../features/LicenseForm/Approval/Approval';
+import Login from '../../features/LicenseForm/Login/Login';
 import BSN from '../../features/LicenseForm/BSN/BSN';
-import Completion from '../../features/LicenseForm/Completion/Completion';
+import PersonalInfo from '../../features/LicenseForm/PersonalInfo/PersonalInfo';
 import CountryCheck from '../../features/LicenseForm/CountryCheck/CountryCheck';
+import Email from '../../features/LicenseForm/Email/Email';
+import PreEducationOption from '../../features/LicenseForm/PreEducationOption/PreEducationOption';
+import ExamDate from '../../features/LicenseForm/ExamDate/ExamDate';
 import Document from '../../features/LicenseForm/Document/Document';
 import DocumentAG from '../../features/LicenseForm/Document/DocumentAG';
-import Email from '../../features/LicenseForm/Email/Email';
-import ExamDate from '../../features/LicenseForm/ExamDate/ExamDate';
-import Login from '../../features/LicenseForm/Login/Login';
-import PersonalInfo from '../../features/LicenseForm/PersonalInfo/PersonalInfo';
-import PreEducationOption from '../../features/LicenseForm/PreEducationOption/PreEducationOption';
-
-import { GqlQuery } from '@erkenningen/graphql';
-import ILicenseFormValues from '../../features/LicenseForm/ILicenseFormValues';
+import Approval from '../../features/LicenseForm/Approval/Approval';
 import Summary from '../../features/LicenseForm/Summary/Summary';
+import Completion from '../../features/LicenseForm/Completion/Completion';
 
-interface ILicenseFormState {
-  currentStep: LicenseSteps;
-  hasSubmitError: boolean;
-}
+import ILicenseFormValues from '../../features/LicenseForm/ILicenseFormValues';
+import { useAuth } from '../../shared/Auth';
+import { useGrowlContext } from '@erkenningen/ui/components/growl';
+import {
+  BasicPersonData,
+  CreatePersonByBsn,
+  CreatePersonByPersonData,
+  RequestLicenseInput,
+  useRequestLicenseMutation,
+} from '../../generated/graphql';
 
-class LicenseForm extends React.Component<{}, ILicenseFormState> {
-  constructor(props: any) {
-    super(props);
+const LicenseForm: React.FC = () => {
+  const { clearGrowl, showGrowl } = useGrowlContext();
+  const [currentStep, setCurrentStep] = useState<LicenseSteps>(LicenseSteps.Login);
+  const [hasSubmitError, setHasSubmitError] = useState<boolean>(false);
 
-    this.state = {
-      currentStep: LicenseSteps.Login,
-      hasSubmitError: false,
-    };
+  const auth = useAuth();
+  const [requestLicense, { error }] = useRequestLicenseMutation({
+    onCompleted() {
+      showGrowl({
+        severity: 'success',
+        summary: 'Licentie succesvol aangevraagd',
+        detail: 'Uw licentie is succesvol aangevraagd.',
+      });
+    },
+    onError(e) {
+      console.log('Error request license', e);
+      showGrowl({
+        severity: 'error',
+        summary: 'Licentie niet aangevraagd!',
+        sticky: true,
+        detail: `Er is een fout opgetreden bij het aanmaken van de licentie aanvraag. Probeer het later opnieuw. Foutmelding: ${e.message}`,
+      });
+    },
+  });
 
-    this.setStep = this.setStep.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.formRender = this.formRender.bind(this);
+  if (auth.loading) {
+    return <p>Gegevens worden geladen...</p>;
   }
 
-  public render() {
-    return (
-      <Mutation mutation={REQUEST_LICENSE}>
-        {(mutation: any) => {
-          const submitWrapper = (
-            values: ILicenseFormValues,
-            actions: FormikActions<ILicenseFormValues>,
-          ) => {
-            this.onSubmit(values, mutation, actions);
-          };
-          return (
-            <Row className="justify-content-start">
-              <Col>
-                <GqlQuery query={MY_PERSON_QUERY} ignoreAuthError={true}>
-                  {(data: any) => {
-                    // Set default values
-                    let personData: ILicenseFormValues = {
-                      Persoon: {
-                        PersoonID: 0,
-                        Voorletters: '',
-                        Tussenvoegsel: '',
-                        Achternaam: '',
-                        Geslacht: 'o',
-                        Nationaliteit: 'Nederlandse',
-                        IsGbaGeregistreerd: false,
-                        Contactgegevens: {
-                          ContactgegevensID: 0,
-                          Adresregel1: '',
-                          Adresregel2: '',
-                          Huisnummer: '',
-                          HuisnummerToevoeging: '',
-                          Postcode: '',
-                          Woonplaats: '',
-                          Land: 'Nederland',
-                          Email: '',
-                        },
-                      },
-                      Certificeringen: [],
-                      FormOptions: {
-                        hasAccount: false,
-                        isLoggedIn: false,
-                        dutchResident: false,
-                        hasBsn: false,
-                        Remarks: '',
-                        Approved: false,
-                        Costs: 0,
-                      },
-                      onStep: this.setStep,
-                    };
-
-                    // Update with user data if set
-                    if (data && data.my) {
-                      personData = {
-                        ...personData,
-                        ...data.my,
-                        Persoon: {
-                          ...data.my.Persoon,
-                          Geboortedatum: new Date(data.my.Persoon.Geboortedatum),
-                          BSN:
-                            data.my.Persoon.BSN === '0' ? null : parseInt(data.my.Persoon.BSN, 0),
-                        },
-                        FormOptions: {
-                          ...personData.FormOptions,
-                          AchternaamBSN: data.my.Persoon.Achternaam,
-                          isLoggedIn: true,
-                        },
-                      };
-                    }
-
-                    return (
-                      <Formik
-                        initialValues={personData}
-                        onSubmit={submitWrapper}
-                        render={this.formRender}
-                        validateOnBlur={false}
-                        validateOnChange={false}
-                      />
-                    );
-                  }}
-                </GqlQuery>
-              </Col>
-            </Row>
-          );
-        }}
-      </Mutation>
-    );
+  if (auth.error) {
+    // ignore
   }
 
-  private formRender(props: FormikProps<ILicenseFormValues>) {
-    return (
-      <form className="form form-horizontal" onSubmit={this.handleSubmit}>
-        {this.state.hasSubmitError ? (
-          <Alert type="danger">
-            Er is een fout opgetreden bij het verwerken van de aanvraag. Controleer uw invoer en
-            probeer het nog een keer of neem contact op met de helpdesk.
-          </Alert>
-        ) : null}
-        {this.state.currentStep === LicenseSteps.Login ? (
-          <Panel title="Login account">
-            <Login {...props} />
-          </Panel>
-        ) : null}
-        {this.state.currentStep === LicenseSteps.CountryCheck ? (
-          <Panel title="Land controle">
-            <CountryCheck {...props} />
-          </Panel>
-        ) : null}
-        {this.state.currentStep === LicenseSteps.PersonalInfo ? (
-          <Panel title="Uw persoonsgegevens">
-            <PersonalInfo {...props} />
-          </Panel>
-        ) : null}
-        {this.state.currentStep === LicenseSteps.Email ? (
-          <Panel title="Uw e-mailadres">
-            <Email {...props} />
-          </Panel>
-        ) : null}
-        {this.state.currentStep === LicenseSteps.ExamDate ? (
-          <Panel title="Datum examen behaald">
-            <ExamDate {...props} />
-          </Panel>
-        ) : null}
-        {this.state.currentStep === LicenseSteps.PreEducationOption ? (
-          <Panel title="Vooropleiding en certificering">
-            <PreEducationOption {...props} />
-          </Panel>
-        ) : null}
-        {this.state.currentStep === LicenseSteps.BSN ? (
-          <Panel title="BSN Controle">
-            <BSN {...props} />
-          </Panel>
-        ) : null}
-        {this.state.currentStep === LicenseSteps.Document ? (
-          <Panel title="Upload benodigde documenten">
-            <Document {...props} />
-          </Panel>
-        ) : null}
-        {this.state.currentStep === LicenseSteps.DocumentAG ? (
-          <Panel title="Certificaat en legitimatie">
-            <DocumentAG {...props} />
-          </Panel>
-        ) : null}
-        {this.state.currentStep === LicenseSteps.Approval ? (
-          <Panel title="Opmerkingen en akkoord kosten">
-            <Approval {...props} />
-          </Panel>
-        ) : null}
-        {this.state.currentStep === LicenseSteps.Summary ? (
-          <Panel title="Samenvatting">
-            <Summary {...props} />
-          </Panel>
-        ) : null}
-        {this.state.currentStep === LicenseSteps.Completion ? (
-          <Panel title="Afronding">
-            <Completion {...props} />
-          </Panel>
-        ) : null}
-      </form>
-    );
+  if (error) {
+    <Alert type="danger">
+      Er is een fout opgetreden bij het aanmaken van de licentie. Probeer het later nog eens.
+    </Alert>;
   }
 
-  private setStep(step: LicenseSteps) {
-    this.setState({ currentStep: step });
+  const setStep = (step: LicenseSteps) => {
+    setCurrentStep(step);
+  };
+
+  let personData: ILicenseFormValues = {
+    Persoon: {
+      PersoonID: 0,
+      Voorletters: '',
+      Tussenvoegsel: '',
+      Achternaam: '',
+      Geslacht: 'o',
+      Nationaliteit: 'Nederlandse',
+      IsGbaGeregistreerd: false,
+      Contactgegevens: {
+        ContactgegevensID: 0,
+        Adresregel1: '',
+        Adresregel2: '',
+        Huisnummer: '',
+        HuisnummerToevoeging: '',
+        Postcode: '',
+        Woonplaats: '',
+        Land: 'Nederland',
+        Email: '',
+      },
+      GbaNummer: '',
+      Roepnaam: '',
+    },
+    Certificeringen: [],
+    FormOptions: {
+      hasAccount: false,
+      isLoggedIn: false,
+      dutchResident: false,
+      hasBsn: false,
+      Remarks: '',
+      Approved: false,
+      Costs: 0,
+    },
+    onStep: setCurrentStep,
+  };
+
+  // Update with user data if set
+  if (auth && auth?.my && auth.my.Persoon && auth.my.Persoon.Achternaam) {
+    personData = {
+      ...personData,
+      ...auth.my,
+      Persoon: {
+        ...auth.my.Persoon,
+        Geboortedatum: new Date(auth.my.Persoon.Geboortedatum),
+        BSN: auth.my.Persoon.BSN === 0 ? undefined : auth.my.Persoon.BSN,
+      },
+      FormOptions: {
+        ...personData.FormOptions,
+        AchternaamBSN: auth?.my?.Persoon.Achternaam,
+        isLoggedIn: true,
+      },
+    } as any;
   }
 
-  private onSubmit(
-    values: ILicenseFormValues,
-    mutation: any,
-    actions: FormikActions<ILicenseFormValues>,
-  ) {
+  /**
+   * Prevent form submit due to pressing enter key in input
+   */
+  const handleSubmit = (event: React.FormEvent): void => {
+    event.preventDefault();
+  };
+
+  const onSubmit = (values: ILicenseFormValues, actions: any) => {
     // Only submit when form is in summary step
-    if (this.state.currentStep !== LicenseSteps.Summary) {
+    if (currentStep !== LicenseSteps.Summary) {
       return;
     }
-    this.setState({ hasSubmitError: false });
+    setHasSubmitError(false);
 
     // Build mutation input variables
+    const input: RequestLicenseInput = {
+      preEducationId: values.FormOptions.VooropleidingID
+        ? parseInt(`${values.FormOptions.VooropleidingID}`, 10)
+        : 0,
+      dateReceived: values.FormOptions.ExamDate ? values.FormOptions.ExamDate.getTime() : null,
+      CertificaatID: values.FormOptions.Certificaat
+        ? parseInt(`${values.FormOptions.Certificaat.CertificaatID}`, 10)
+        : 0,
+      CertificeringID: undefined,
+      file1: values.FormOptions.File1,
+      file2: values.FormOptions.File2,
+      file3: values.FormOptions.File3,
+      remarks: values.FormOptions.Remarks,
+    };
     const mutationVariables: any = {
       variables: {
-        input: {
-          preEducationId: values.FormOptions.Vooropleiding
-            ? parseInt(`${values.FormOptions.Vooropleiding.VooropleidingID}`, 10)
-            : null,
-          dateReceived: values.FormOptions.ExamDate ? values.FormOptions.ExamDate.getTime() : null,
-          CertificaatID: values.FormOptions.Certificaat
-            ? parseInt(`${values.FormOptions.Certificaat.CertificaatID}`, 10)
-            : null,
-          CertificeringID: null,
-          file1: values.FormOptions.File1,
-          file2: values.FormOptions.File2,
-          file3: values.FormOptions.File3,
-          remarks: values.FormOptions.Remarks,
-        },
+        input: input,
       },
     };
 
     if (values.FormOptions.isLoggedIn) {
-      mutationVariables.variables.personDataInput = {
+      const personDataInput: BasicPersonData = {
         PersoonID: parseInt(`${values.Persoon.PersoonID}`, 10),
         Email: values.Persoon.Contactgegevens.Email,
       };
+      mutationVariables.variables.personDataInput = personDataInput;
     } else {
       if (values.FormOptions.hasBsn) {
-        mutationVariables.variables.createPersonByBsnInput = {
+        const createPersonByBsnInput: CreatePersonByBsn = {
           BSN: parseInt(`${values.Persoon.BSN}`, 10),
           Geboortedatum: values.Persoon.Geboortedatum,
           Email: values.Persoon.Contactgegevens.Email,
         };
+        mutationVariables.variables.createPersonByBsnInput = createPersonByBsnInput;
       } else {
-        mutationVariables.variables.createPersonByPersonDataInput = {
+        const createPersonByPersonDataInput: CreatePersonByPersonData = {
           Voorletters: values.Persoon.Voorletters,
           Tussenvoegsel: values.Persoon.Tussenvoegsel,
           Achternaam: values.Persoon.Achternaam,
@@ -271,29 +194,127 @@ class LicenseForm extends React.Component<{}, ILicenseFormState> {
           Land: values.Persoon.Contactgegevens.Land,
           Email: values.Persoon.Contactgegevens.Email,
         };
+        mutationVariables.variables.createPersonByPersonDataInput = createPersonByPersonDataInput;
       }
     }
 
-    mutation(mutationVariables)
-      .then((response: any) => {
-        actions.setFieldValue('licenseRequestResult', response.data.requestLicense);
+    requestLicense(mutationVariables)
+      .then((response) => {
+        if (response.errors) {
+          showGrowl({
+            severity: 'error',
+            summary: 'Licentie niet aangevraagd!',
+            sticky: true,
+            detail: `Er is een fout opgetreden bij het aanmaken van de licentie aanvraag. Probeer het later opnieuw. Foutmelding: ${response.errors
+              .map((e) => e.message)
+              .join('.')}`,
+          });
+          setHasSubmitError(true);
+          actions.setSubmitting(false);
+          return;
+        }
+        if (response.data) {
+          actions.setFieldValue('licenseRequestResult', response.data?.requestLicense);
 
-        actions.setSubmitting(false);
+          actions.setSubmitting(false);
 
-        this.setStep(LicenseSteps.Completion);
+          setCurrentStep(LicenseSteps.Completion);
+        }
       })
-      .catch((e: any) => {
-        this.setState({ hasSubmitError: true });
+      .catch(() => {
+        setHasSubmitError(true);
         actions.setSubmitting(false);
       });
-  }
+  };
 
-  /**
-   * Prevent form submit due to pressing enter key in input
-   */
-  private handleSubmit(event: React.FormEvent): void {
-    event.preventDefault();
-  }
-}
+  const submitWrapper = (values: ILicenseFormValues, actions: any) => {
+    onSubmit(values, actions);
+  };
+
+  return (
+    <Row className="justify-content-start">
+      <Col>
+        <Formik
+          initialValues={personData}
+          onSubmit={submitWrapper}
+          validateOnBlur={false}
+          validateOnChange={false}
+        >
+          {(props: FormikProps<ILicenseFormValues>) => (
+            <form className="form form-horizontal" onSubmit={handleSubmit}>
+              {hasSubmitError ? (
+                <Alert type="danger">
+                  Er is een fout opgetreden bij het verwerken van de aanvraag. Controleer uw invoer
+                  en probeer het nog een keer of neem contact op met de helpdesk.
+                </Alert>
+              ) : null}
+              {currentStep === LicenseSteps.Login ? (
+                <Panel title="Login account">
+                  <Login setStep={setStep} form={props} />
+                </Panel>
+              ) : null}
+              {currentStep === LicenseSteps.CountryCheck ? (
+                <Panel title="Land controle">
+                  <CountryCheck setStep={setStep} form={props} />
+                </Panel>
+              ) : null}
+              {currentStep === LicenseSteps.BSN ? (
+                <Panel title="BSN Controle">
+                  <BSN setStep={setStep} form={props} />
+                </Panel>
+              ) : null}
+
+              {currentStep === LicenseSteps.PersonalInfo ? (
+                <Panel title="Uw persoonsgegevens">
+                  <PersonalInfo setStep={setStep} form={props} />
+                </Panel>
+              ) : null}
+              {currentStep === LicenseSteps.Email ? (
+                <Panel title="Uw e-mailadres">
+                  <Email setStep={setStep} form={props} />
+                </Panel>
+              ) : null}
+              {currentStep === LicenseSteps.PreEducationOption ? (
+                <Panel title="Vooropleiding en certificering">
+                  <PreEducationOption setStep={setStep} form={props} />
+                </Panel>
+              ) : null}
+              {currentStep === LicenseSteps.ExamDate ? (
+                <Panel title="Datum examen behaald">
+                  <ExamDate setStep={setStep} form={props} />
+                </Panel>
+              ) : null}
+              {currentStep === LicenseSteps.Document ? (
+                <Panel title="Upload benodigde documenten">
+                  <Document setStep={setStep} form={props} />
+                </Panel>
+              ) : null}
+              {currentStep === LicenseSteps.DocumentAG ? (
+                <Panel title="Certificaat en legitimatie">
+                  <DocumentAG setStep={setStep} form={props} />
+                </Panel>
+              ) : null}
+              {currentStep === LicenseSteps.Approval ? (
+                <Panel title="Opmerkingen en akkoord kosten">
+                  <Approval setStep={setStep} form={props} />
+                </Panel>
+              ) : null}
+              {currentStep === LicenseSteps.Summary ? (
+                <Panel title="Samenvatting">
+                  <Summary setStep={setStep} form={props} />
+                </Panel>
+              ) : null}
+              {currentStep === LicenseSteps.Completion ? (
+                <Panel title="Afronding">
+                  <Completion setStep={setStep} form={props} />
+                </Panel>
+              ) : null}
+            </form>
+          )}
+        </Formik>
+      </Col>
+    </Row>
+  );
+};
 
 export default LicenseForm;

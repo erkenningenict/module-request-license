@@ -1,0 +1,118 @@
+query GetMy {
+  my {
+    Persoon {
+      PersoonID
+      Voorletters
+      Tussenvoegsel
+      Achternaam
+      Geslacht
+      Nationaliteit
+      Geboortedatum
+      IsGbaGeregistreerd
+      BSN
+      Contactgegevens {
+        ContactgegevensID
+        Adresregel1
+        Adresregel2
+        Huisnummer
+        HuisnummerToevoeging
+        Postcode
+        Woonplaats
+        Land
+        Email
+      }
+    }
+    Certificeringen(alleenGeldig: true) {
+      CertificeringID
+      Nummer
+      BeginDatum
+      EindDatum
+      Certificaat {
+        Naam
+        Code
+      }
+      CertificeringAantekeningen {
+        AantekeningCode
+      }
+    }
+  }
+}
+
+query GetCertificates {
+  Certificaten {
+    CertificaatID
+    Naam
+    Code
+  }
+}
+
+query GetCertificatePrice {
+  tariefByCertificaatCode(certificaatCode: "AG", individueleAanvraag: true) {
+    TotaalExtBtw
+  }
+}
+
+query GetCountriesAndNationalities {
+  Landen {
+    Text
+    Value
+  }
+  Nationaliteiten {
+    Text
+    Value
+  }
+}
+
+query GetEducationData {
+  preEducationCategories {
+    VooropleidingCategorieID
+    Naam
+  }
+  Vooropleidingen(codes: []) {
+    VooropleidingID
+    Code
+    Naam
+    Omschrijving
+    Categorie {
+      VooropleidingCategorieID
+      Naam
+    }
+  }
+}
+
+query CertificatesByPreEducation($code: String!) {
+  certificatesByPreEducation(code: $code) {
+    CertificaatID
+    Code
+    Naam
+  }
+}
+
+mutation requestLicense(
+  $input: requestLicenseInput!
+  $personDataInput: basicPersonData
+  $createPersonByBsnInput: createPersonByBsn
+  $createPersonByPersonDataInput: createPersonByPersonData
+) {
+  requestLicense(
+    input: $input
+    personDataInput: $personDataInput
+    createPersonByBsnInput: $createPersonByBsnInput
+    createPersonByPersonDataInput: $createPersonByPersonDataInput
+  ) {
+    VrijstellingsVerzoekID
+    invoiceLink
+    requestFormPdfLink
+  }
+}
+
+mutation checkForExistingPersonByBsn($bsn: Int!, $birthDate: Date!) {
+  checkForExistingPersonByBsn(bsn: $bsn, birthDate: $birthDate) {
+    personFoundInDatabase
+    personFoundInGba
+    message
+    persons {
+      PersoonID
+    }
+  }
+}

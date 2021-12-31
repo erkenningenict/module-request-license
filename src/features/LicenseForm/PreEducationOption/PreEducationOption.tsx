@@ -1,200 +1,225 @@
-import * as React from 'react';
+import React from 'react';
 
 import { Button } from '@erkenningen/ui/components/button';
+import { Spinner } from '@erkenningen/ui/components/spinner';
 import { Col } from '@erkenningen/ui/layout/col';
 import { Row } from '@erkenningen/ui/layout/row';
 
-import FormSelect from '../../../components/ui/FormSelect';
-import FormStep from '../../../components/ui/FormStep';
+import { FormSelect } from '@erkenningen/ui/components/form';
 
-import { GqlQuery } from '@erkenningen/graphql';
-import { IVoorOpleiding, LicenseSteps } from '../../../shared/Model';
-import {
-  CERTS_BY_PRE_EDUCATION_QUERY,
-  PRE_EDUCATION_CATEGORIES_QUERY,
-  PRE_EDUCATIONS_QUERY,
-} from '../../../shared/Queries';
+import { LicenseSteps } from '../../../shared/Model';
 import { validateField } from '../../../shared/validation/Form';
+import { FormikProps } from 'formik';
+import ILicenseFormValues from '../ILicenseFormValues';
+import { useGrowlContext } from '@erkenningen/ui/components/growl';
+import {
+  useCertificatesByPreEducationQuery,
+  useGetEducationDataQuery,
+} from '../../../generated/graphql';
+import { useEffect } from 'react';
 
-class PreEducationOption extends FormStep {
-  constructor(props: any) {
-    super(props);
+interface PreEducatiionOptionsProps {
+  form: FormikProps<ILicenseFormValues>;
+  setStep: (step: LicenseSteps) => void;
+}
 
-    this.onSubmit = this.onSubmit.bind(this);
-    this.prevStep = this.prevStep.bind(this);
-    this.nextStep = this.nextStep.bind(this);
-    this.onCategoryChange = this.onCategoryChange.bind(this);
-    this.onPreEducationChange = this.onPreEducationChange.bind(this);
-    this.filterPreEducationsByCategory = this.filterPreEducationsByCategory.bind(this);
-  }
+const PreEducationOption: React.FC<PreEducatiionOptionsProps> = (props) => {
+  const { showGrowl } = useGrowlContext();
+  const { loading, data } = useGetEducationDataQuery({
+    onError() {
+      showGrowl({
+        severity: 'error',
+        summary: 'Fout bij ophalen prijs',
+        sticky: true,
+        detail: `Er is een fout opgetreden bij het ophalen van gegevens. Probeer het later nog eens`,
+      });
+    },
+  });
 
-  public render() {
-    return (
-      <>
-        <GqlQuery query={PRE_EDUCATION_CATEGORIES_QUERY}>
-          {(data: any) => {
-            const items = data.preEducationCategories;
-            const selectOptions: any[] =
-              (items &&
-                items.map((item: any) => ({
-                  label: item.Naam,
-                  value: item.VooropleidingCategorieID,
-                  item,
-                }))) ||
-              [];
+  useEffect(() => {
+    if (data && data.Vooropleidingen && props.form.values.FormOptions.VooropleidingID) {
+      const vooropleiding = data?.Vooropleidingen.find(
+        (v) => v.VooropleidingID === props.form.values.FormOptions.VooropleidingID,
+      );
 
-            return (
-              <Row>
-                <Col>
-                  {' '}
-                  <FormSelect
-                    id="preEducationCategory"
-                    label="Selecteer opleidingsland"
-                    name="FormOptions.VooropleidingCategorie"
-                    options={selectOptions}
-                    filter={true}
-                    form={this.props}
-                    onChange={this.onCategoryChange}
-                  />
-                </Col>
-              </Row>
-            );
-          }}
-        </GqlQuery>
-
-        <GqlQuery query={PRE_EDUCATIONS_QUERY}>
-          {(data: any) => {
-            if (!this.props.values.FormOptions.VooropleidingCategorie) {
-              return null;
-            }
-
-            const items = data.Vooropleidingen;
-            const selectOptions: any[] =
-              this.props.values.FormOptions.VooropleidingCategorie && items
-                ? items
-                    .filter(
-                      (item: any) =>
-                        this.props.values.FormOptions.VooropleidingCategorie &&
-                        item.Categorie.VooropleidingCategorieID ===
-                          this.props.values.FormOptions.VooropleidingCategorie
-                            .VooropleidingCategorieID &&
-                        item.Code !== '30.01',
-                    )
-                    .map((item: any) => ({
-                      label: `${item.Code} | ${item.Naam}`,
-                      value: item.VooropleidingID,
-                      item,
-                    }))
-                : [];
-
-            return (
-              <Row>
-                <Col>
-                  {' '}
-                  <FormSelect
-                    id="preEducation"
-                    label="Selecteer vooropleiding"
-                    name="FormOptions.Vooropleiding"
-                    options={selectOptions}
-                    filter={true}
-                    form={this.props}
-                    onChange={this.onPreEducationChange}
-                  />
-                </Col>
-              </Row>
-            );
-          }}
-        </GqlQuery>
-        {this.props.values.FormOptions.Vooropleiding ? (
-          <GqlQuery
-            query={CERTS_BY_PRE_EDUCATION_QUERY}
-            variables={{
-              code: this.props.values.FormOptions.Vooropleiding.Code,
-            }}
-          >
-            {(data: any) => {
-              const items = data.certificatesByPreEducation;
-              const selectOptions: any[] = items
-                ? items.map((item: any) => ({
-                    label: item.Naam,
-                    value: item.CertificaatID,
-                    item,
-                  }))
-                : [];
-
-              return (
-                <Row>
-                  <Col>
-                    {' '}
-                    <FormSelect
-                      id="certificate"
-                      label="Selecteer gewenste certificering"
-                      name="FormOptions.Certificaat"
-                      options={selectOptions}
-                      filter={true}
-                      form={this.props}
-                    />
-                  </Col>
-                </Row>
-              );
-            }}
-          </GqlQuery>
-        ) : null}
-        <Button onClick={this.prevStep} label="Vorige" icon="fa fa-chevron-left" iconPos="left" />
-        <Button
-          onClick={this.onSubmit}
-          disabled={this.props.isSubmitting}
-          label="Volgende"
-          icon="fa fa-chevron-right"
-          iconPos="right"
-        />
-      </>
-    );
-  }
-
-  private filterPreEducationsByCategory(preEducation: IVoorOpleiding): boolean {
-    if (!this.props.values.FormOptions.VooropleidingCategorie) {
-      return false;
+      if (vooropleiding) {
+        props.form.setFieldValue('FormOptions.Vooropleiding', vooropleiding);
+      }
     }
-    return (
-      preEducation.Categorie.VooropleidingCategorieID ===
-      this.props.values.FormOptions.VooropleidingCategorie.VooropleidingCategorieID
-    );
+  }, [data?.Vooropleidingen, props.form.values.FormOptions.VooropleidingID]);
+
+  const {
+    loading: certificatesByPreEducationLoading,
+    data: certificatesByPreEducationData,
+  } = useCertificatesByPreEducationQuery({
+    variables: {
+      code: props?.form.values?.FormOptions?.Vooropleiding?.Code || '',
+    },
+    skip:
+      props.form.values.FormOptions?.Vooropleiding?.Code === '' ||
+      props.form.values.FormOptions?.Vooropleiding === undefined,
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'network-only',
+    onError() {
+      showGrowl({
+        severity: 'error',
+        summary: 'Fout bij ophalen prijs',
+        sticky: true,
+        detail: `Er is een fout opgetreden bij het ophalen van gegevens. Probeer het later nog eens`,
+      });
+    },
+  });
+
+  if (loading) {
+    return <Spinner text={'Gegevens laden...'} />;
   }
 
-  private onCategoryChange(): void {
+  if (!data) {
+    return null;
+  }
+
+  const onCategoryChange = (): void => {
     // Reset pre education value if category has been changed
-    this.props.setFieldValue('FormOptions.Vooropleiding', '');
-  }
+    props.form.setFieldValue('FormOptions.VooropleidingID', '');
+    props.form.setFieldValue('FormOptions.Vooropleiding', undefined);
+  };
 
-  private onPreEducationChange(): void {
+  const onPreEducationChange = (): void => {
     // Reset certificate value if pre-education has been changed
-    this.props.setFieldValue('FormOptions.Certificaat', '');
-  }
+    props.form.setFieldValue('FormOptions.CertificaatID', '');
+  };
 
-  private onSubmit(): void {
-    if (this.validate()) {
-      this.nextStep();
-    }
-  }
-
-  private validate(): boolean {
+  const validate = (): boolean => {
     let isValid = true;
 
-    isValid = isValid && validateField(this.props, 'FormOptions.VooropleidingCategorie');
-    isValid = isValid && validateField(this.props, 'FormOptions.Vooropleiding');
-    isValid = isValid && validateField(this.props, 'FormOptions.Certificaat');
+    isValid = isValid && validateField(props.form, 'FormOptions.VooropleidingCategorieID');
+    isValid = isValid && validateField(props.form, 'FormOptions.VooropleidingID');
+    isValid = isValid && validateField(props.form, 'FormOptions.CertificaatID');
 
     return isValid;
+  };
+
+  const prevStep = (): void => {
+    props.setStep(LicenseSteps.Email);
+  };
+
+  const nextStep = (): void => {
+    props.setStep(LicenseSteps.ExamDate);
+  };
+
+  const onSubmit = (): void => {
+    if (validate()) {
+      nextStep();
+    }
+  };
+
+  const categories = data.preEducationCategories;
+  const selectOptionsCountries: any[] =
+    (categories &&
+      categories.map((item: any) => ({
+        label: item.Naam,
+        value: item.VooropleidingCategorieID,
+        item,
+      }))) ||
+    [];
+
+  const vooropleidingen = data.Vooropleidingen;
+  const selectOptionsVooropleidingen: any[] =
+    props.form.values.FormOptions.VooropleidingCategorieID && vooropleidingen
+      ? vooropleidingen
+          .filter(
+            (item) =>
+              props.form.values.FormOptions.VooropleidingCategorieID &&
+              item.Categorie.VooropleidingCategorieID ===
+                props.form.values.FormOptions.VooropleidingCategorieID &&
+              item.Code !== '30.01',
+          )
+          .map((item) => ({
+            label: `${item.Code} | ${item.Naam}`,
+            value: item.VooropleidingID,
+            item,
+          }))
+      : [];
+
+  const possibleCertificatesToChoose =
+    certificatesByPreEducationData?.certificatesByPreEducation || [];
+  const selectOptionsCertificates: any[] = possibleCertificatesToChoose
+    ? possibleCertificatesToChoose.map((item: any) => ({
+        label: item.Naam,
+        value: item.CertificaatID,
+        item,
+      }))
+    : [];
+  if (
+    selectOptionsCertificates &&
+    selectOptionsCertificates.length === 1 &&
+    (props.form.values.FormOptions.Certificaat === undefined ||
+      (props.form.values.FormOptions.Certificaat &&
+        props.form.values.FormOptions.CertificaatID !==
+          selectOptionsCertificates[0].item.CertificaatID))
+  ) {
+    setTimeout(() => {
+      props.form.setFieldValue('FormOptions.Certificaat', selectOptionsCertificates[0].item);
+    }, 1);
   }
 
-  private prevStep(): void {
-    this.setStep(LicenseSteps.Email);
-  }
+  return (
+    <>
+      <Row>
+        <Col>
+          <FormSelect
+            label="Selecteer opleidingsland"
+            name="FormOptions.VooropleidingCategorieID"
+            options={selectOptionsCountries}
+            filter={true}
+            formItemProps={props}
+            onChange={onCategoryChange}
+          />
+        </Col>
+      </Row>
 
-  private nextStep(): void {
-    this.setStep(LicenseSteps.ExamDate);
-  }
-}
+      <Row>
+        <Col>
+          <FormSelect
+            label="Selecteer vooropleiding"
+            name="FormOptions.VooropleidingID"
+            options={selectOptionsVooropleidingen}
+            filter={true}
+            formItemProps={props}
+            onChange={onPreEducationChange}
+          />
+        </Col>
+      </Row>
+
+      {props.form.values.FormOptions.Vooropleiding && !certificatesByPreEducationLoading ? (
+        <Row>
+          <Col>
+            <FormSelect
+              label="Selecteer gewenste certificering"
+              name="FormOptions.CertificaatID"
+              options={selectOptionsCertificates}
+              filter={true}
+              onChange={(e) => {
+                const cert = selectOptionsCertificates.find((s) => s.CertificaatID === e.value);
+                if (cert) {
+                  props.form.setFieldValue('FormOptions.Certificaat', cert);
+                }
+              }}
+              formItemProps={props}
+            />
+          </Col>
+        </Row>
+      ) : null}
+      <Button onClick={prevStep} label="Vorige" icon="fa fa-chevron-left" iconPos="left" />
+      <Button
+        onClick={onSubmit}
+        disabled={props.form.isSubmitting}
+        label="Volgende"
+        icon="fa fa-chevron-right"
+        iconPos="right"
+      />
+    </>
+  );
+};
 
 export default PreEducationOption;
