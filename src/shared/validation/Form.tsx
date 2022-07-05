@@ -26,8 +26,8 @@ const ValidationSchema = Yup.object().shape({
         'Geboortedatum mag niet meer dan 100 jaar in het verleden liggen',
       )
       .max(
-        new Date(dateNow.getFullYear() - 18, dateNow.getMonth(), dateNow.getDate()),
-        'Geboortedatum moet meer dan 18 jaar in het verleden liggen',
+        new Date(dateNow.getFullYear() - 16, dateNow.getMonth(), dateNow.getDate()),
+        'Geboortedatum moet meer dan 16 jaar in het verleden liggen',
       ),
     Contactgegevens: Yup.object().shape({
       Adresregel1: Yup.string().required(MessageRequired),
