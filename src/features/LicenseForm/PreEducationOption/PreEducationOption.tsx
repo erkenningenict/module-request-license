@@ -18,12 +18,12 @@ import {
 } from '../../../generated/graphql';
 import { useEffect } from 'react';
 
-interface PreEducatiionOptionsProps {
+interface PreEducationOptionsProps {
   form: FormikProps<ILicenseFormValues>;
   setStep: (step: LicenseSteps) => void;
 }
 
-const PreEducationOption: React.FC<PreEducatiionOptionsProps> = (props) => {
+const PreEducationOption: React.FC<PreEducationOptionsProps> = (props) => {
   const { showGrowl } = useGrowlContext();
   const { loading, data } = useGetEducationDataQuery({
     onError() {

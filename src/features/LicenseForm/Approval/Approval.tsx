@@ -23,6 +23,9 @@ interface ApprovalProps {
 const Approval: React.FC<ApprovalProps> = (props) => {
   const { showGrowl } = useGrowlContext();
   const { loading, data } = useGetCertificatePriceQuery({
+    variables: {
+      certificaatCode: props?.form?.values?.FormOptions?.Certificaat?.Code || '',
+    },
     onError() {
       showGrowl({
         severity: 'error',
@@ -59,7 +62,7 @@ const Approval: React.FC<ApprovalProps> = (props) => {
       <Row>
         <Col>
           <Alert type="info">
-            Geef aan of u akkoord gaat met de kosten en voeg optioneel een opmerking toe.
+            Geef aan of u akkoord gaat met de kosten. Voeg optioneel een opmerking toe.
           </Alert>
         </Col>
       </Row>

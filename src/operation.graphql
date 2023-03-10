@@ -46,8 +46,8 @@ query GetCertificates {
   }
 }
 
-query GetCertificatePrice {
-  tariefByCertificaatCode(certificaatCode: "AG", individueleAanvraag: true) {
+query GetCertificatePrice($certificaatCode: String!) {
+  tariefByCertificaatCode(certificaatCode: $certificaatCode, individueleAanvraag: true) {
     TotaalExtBtw
   }
 }

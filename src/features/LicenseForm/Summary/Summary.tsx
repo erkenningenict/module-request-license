@@ -20,6 +20,9 @@ interface SummaryProps {
 const Summary: React.FC<SummaryProps> = (props) => {
   const { showGrowl } = useGrowlContext();
   const { loading, data: certificatePrice } = useGetCertificatePriceQuery({
+    variables: {
+      certificaatCode: props.form.values.FormOptions.Certificaat?.Code || '',
+    },
     onError() {
       showGrowl({
         severity: 'error',
