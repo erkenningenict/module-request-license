@@ -15,7 +15,7 @@ export type Scalars = {
   Float: number;
   /** Date custom scalar type */
   Date: any;
-  /** The Email scalar type represents E-Mail addresses compliant to RFC 822. */
+  /** Email description */
   Email: any;
   /** Safe string custom scalar type that does not allow xss attacks */
   SafeString: any;
@@ -991,7 +991,7 @@ export type My = {
   Persoon: Persoon;
   Roles?: Maybe<Array<Maybe<Scalars['String']>>>;
   Studieresultaten?: Maybe<Array<Maybe<Studieresultaat>>>;
-  StudyProgress: Array<StudyProgress>;
+  StudyProgress?: Maybe<Array<StudyProgress>>;
   /** Link to vakgroep(en), via Hoogleraar table */
   VakgroepLinks?: Maybe<Array<Maybe<VakgroepLink>>>;
   personId: Scalars['Int'];
@@ -1227,7 +1227,6 @@ export type Query = {
   BijeenkomstDetails?: Maybe<Bijeenkomst>;
   BijeenkomstenList?: Maybe<CursusNodes>;
   Certificaten?: Maybe<Array<Maybe<Certificaat>>>;
-  Certificering?: Maybe<Certificering>;
   Certificeringen?: Maybe<Array<Maybe<Certificering>>>;
   Competenties: Array<Maybe<Competentie>>;
   Contactgegevens?: Maybe<Contactgegevens>;
@@ -1304,11 +1303,6 @@ export type QueryBijeenkomstenListArgs = {
 
 export type QueryCertificatenArgs = {
   idList?: InputMaybe<Array<Scalars['Int']>>;
-};
-
-
-export type QueryCertificeringArgs = {
-  certificeringId: Scalars['Int'];
 };
 
 
@@ -1519,6 +1513,7 @@ export type QuerySearchCardArgs = {
 export type QueryTariefByCertificaatCodeArgs = {
   certificaatCode: Scalars['String'];
   individueleAanvraag?: InputMaybe<Scalars['Boolean']>;
+  vooropleidingID: Scalars['Int'];
 };
 
 export type RegenerateAccessTokenResult = {
@@ -2538,6 +2533,7 @@ export type GetCertificatesQuery = { Certificaten?: Array<{ __typename?: 'Certif
 
 export type GetCertificatePriceQueryVariables = Exact<{
   certificaatCode: Scalars['String'];
+  vooropleidingID: Scalars['Int'];
 }>;
 
 
@@ -2684,10 +2680,11 @@ export type GetCertificatesQueryHookResult = ReturnType<typeof useGetCertificate
 export type GetCertificatesLazyQueryHookResult = ReturnType<typeof useGetCertificatesLazyQuery>;
 export type GetCertificatesQueryResult = Apollo.QueryResult<GetCertificatesQuery, GetCertificatesQueryVariables>;
 export const GetCertificatePriceDocument = gql`
-    query GetCertificatePrice($certificaatCode: String!) {
+    query GetCertificatePrice($certificaatCode: String!, $vooropleidingID: Int!) {
   tariefByCertificaatCode(
     certificaatCode: $certificaatCode
     individueleAanvraag: true
+    vooropleidingID: $vooropleidingID
   ) {
     TotaalExtBtw
   }
@@ -2707,6 +2704,7 @@ export const GetCertificatePriceDocument = gql`
  * const { data, loading, error } = useGetCertificatePriceQuery({
  *   variables: {
  *      certificaatCode: // value for 'certificaatCode'
+ *      vooropleidingID: // value for 'vooropleidingID'
  *   },
  * });
  */

@@ -25,6 +25,7 @@ const Approval: React.FC<ApprovalProps> = (props) => {
   const { loading, data } = useGetCertificatePriceQuery({
     variables: {
       certificaatCode: props?.form?.values?.FormOptions?.Certificaat?.Code || '',
+      vooropleidingID: props?.form?.values?.FormOptions?.VooropleidingID || 999,
     },
     onError() {
       showGrowl({

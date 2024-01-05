@@ -22,6 +22,7 @@ const Summary: React.FC<SummaryProps> = (props) => {
   const { loading, data: certificatePrice } = useGetCertificatePriceQuery({
     variables: {
       certificaatCode: props.form.values.FormOptions.Certificaat?.Code || '',
+      vooropleidingID: props.form.values.FormOptions.VooropleidingID || 999,
     },
     onError() {
       showGrowl({
