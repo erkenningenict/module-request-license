@@ -66,9 +66,11 @@ const Document: React.FC<DocumentProps> = (props) => {
     props.form.setFieldError('FormOptions.File1', file1ValidationResult);
     isValid = isValid && file1ValidationResult === '';
 
-    const file2ValidationResult = isValidDocumentFile(props.form.values.FormOptions.File2);
-    props.form.setFieldError('FormOptions.File2', file2ValidationResult);
-    isValid = isValid && file2ValidationResult === '';
+    if (props.form.values.FormOptions.File2) {
+      const file2ValidationResult = isValidDocumentFile(props.form.values.FormOptions.File2);
+      props.form.setFieldError('FormOptions.File2', file2ValidationResult);
+      isValid = isValid && file2ValidationResult === '';
+    }
 
     if (!props.form.values.FormOptions.isLoggedIn) {
       const file3ValidationResult = isValidDocumentFile(props.form.values.FormOptions.File3);
@@ -125,7 +127,7 @@ const Document: React.FC<DocumentProps> = (props) => {
       <Row>
         <Col>
           <Button
-            label="Selecteer uw cijferlijst"
+            label="Selecteer uw cijferlijst (als deze op uw diploma staat is het niet nodig nogmaals uw diploma hier te uploaden)"
             icon="pi pi-plus"
             className="p-button-secondary"
             onClick={onFile2Click}
