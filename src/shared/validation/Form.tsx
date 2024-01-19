@@ -1,4 +1,4 @@
-import add from 'date-fns/add';
+import { add } from 'date-fns/add';
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
 
@@ -26,8 +26,8 @@ const ValidationSchema = Yup.object().shape({
         'Geboortedatum mag niet meer dan 100 jaar in het verleden liggen',
       )
       .max(
-        new Date(dateNow.getFullYear() - 18, dateNow.getMonth(), dateNow.getDate()),
-        'Geboortedatum moet meer dan 18 jaar in het verleden liggen',
+        new Date(dateNow.getFullYear() - 16, dateNow.getMonth(), dateNow.getDate()),
+        'Geboortedatum moet meer dan 16 jaar in het verleden liggen',
       ),
     Contactgegevens: Yup.object().shape({
       Adresregel1: Yup.string().required(MessageRequired),
@@ -59,7 +59,7 @@ const ValidationSchema = Yup.object().shape({
       .min(add(new Date(), { years: -5 }), 'Datum mag maximaal 5 jaar in het verleden liggen')
       .max(new Date(), 'Datum mag niet in de toekomst liggen')
       .when('Vooropleiding.Code', {
-        is: '30.02', // Adviseren Gewasbeschermin g HBO Certificaat
+        is: '30.02', // Adviseren Gewasbescherming HBO Certificaat
         then: Yup.date()
           .strict(true)
           .min(new Date(2019, 0, 1), 'Datum mag niet voor 1 januari 2019 liggen'),

@@ -18,12 +18,12 @@ import {
 } from '../../../generated/graphql';
 import { useEffect } from 'react';
 
-interface PreEducatiionOptionsProps {
+interface PreEducationOptionsProps {
   form: FormikProps<ILicenseFormValues>;
   setStep: (step: LicenseSteps) => void;
 }
 
-const PreEducationOption: React.FC<PreEducatiionOptionsProps> = (props) => {
+const PreEducationOption: React.FC<PreEducationOptionsProps> = (props) => {
   const { showGrowl } = useGrowlContext();
   const { loading, data } = useGetEducationDataQuery({
     onError() {
@@ -48,27 +48,25 @@ const PreEducationOption: React.FC<PreEducatiionOptionsProps> = (props) => {
     }
   }, [data?.Vooropleidingen, props.form.values.FormOptions.VooropleidingID]);
 
-  const {
-    loading: certificatesByPreEducationLoading,
-    data: certificatesByPreEducationData,
-  } = useCertificatesByPreEducationQuery({
-    variables: {
-      code: props?.form.values?.FormOptions?.Vooropleiding?.Code || '',
-    },
-    skip:
-      props.form.values.FormOptions?.Vooropleiding?.Code === '' ||
-      props.form.values.FormOptions?.Vooropleiding === undefined,
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'network-only',
-    onError() {
-      showGrowl({
-        severity: 'error',
-        summary: 'Fout bij ophalen prijs',
-        sticky: true,
-        detail: `Er is een fout opgetreden bij het ophalen van gegevens. Probeer het later nog eens`,
-      });
-    },
-  });
+  const { loading: certificatesByPreEducationLoading, data: certificatesByPreEducationData } =
+    useCertificatesByPreEducationQuery({
+      variables: {
+        code: props?.form.values?.FormOptions?.Vooropleiding?.Code || '',
+      },
+      skip:
+        props.form.values.FormOptions?.Vooropleiding?.Code === '' ||
+        props.form.values.FormOptions?.Vooropleiding === undefined,
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'network-only',
+      onError() {
+        showGrowl({
+          severity: 'error',
+          summary: 'Fout bij ophalen prijs',
+          sticky: true,
+          detail: `Er is een fout opgetreden bij het ophalen van gegevens. Probeer het later nog eens`,
+        });
+      },
+    });
 
   if (loading) {
     return <Spinner text={'Gegevens laden...'} />;
@@ -87,6 +85,7 @@ const PreEducationOption: React.FC<PreEducatiionOptionsProps> = (props) => {
   const onPreEducationChange = (): void => {
     // Reset certificate value if pre-education has been changed
     props.form.setFieldValue('FormOptions.CertificaatID', '');
+    props.form.setFieldValue('FormOptions.Certificaat', '');
   };
 
   const validate = (): boolean => {
@@ -160,6 +159,10 @@ const PreEducationOption: React.FC<PreEducatiionOptionsProps> = (props) => {
   ) {
     setTimeout(() => {
       props.form.setFieldValue('FormOptions.Certificaat', selectOptionsCertificates[0].item);
+      props.form.setFieldValue(
+        'FormOptions.CertificaatID',
+        selectOptionsCertificates[0].item.CertificaatID,
+      );
     }, 1);
   }
 
@@ -200,9 +203,10 @@ const PreEducationOption: React.FC<PreEducatiionOptionsProps> = (props) => {
               options={selectOptionsCertificates}
               filter={true}
               onChange={(e) => {
-                const cert = selectOptionsCertificates.find((s) => s.CertificaatID === e.value);
+                const cert = selectOptionsCertificates.find((s) => s.value === e.value);
                 if (cert) {
-                  props.form.setFieldValue('FormOptions.Certificaat', cert);
+                  props.form.setFieldValue('FormOptions.Certificaat', cert.item);
+                  props.form.setFieldValue('FormOptions.CertificaatID', cert.value);
                 }
               }}
               formItemProps={props}

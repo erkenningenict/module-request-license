@@ -20,6 +20,10 @@ interface SummaryProps {
 const Summary: React.FC<SummaryProps> = (props) => {
   const { showGrowl } = useGrowlContext();
   const { loading, data: certificatePrice } = useGetCertificatePriceQuery({
+    variables: {
+      certificaatCode: props.form.values.FormOptions.Certificaat?.Code || '',
+      vooropleidingID: props.form.values.FormOptions.VooropleidingID || 999,
+    },
     onError() {
       showGrowl({
         severity: 'error',
@@ -172,7 +176,7 @@ const Summary: React.FC<SummaryProps> = (props) => {
               {!data.FormOptions.isLoggedIn ? (
                 <Row>
                   <Col>
-                    <b>Legitimatie</b>
+                    <b>Identiteitsbewijs</b>
                   </Col>
                   <Col>
                     <i>{data.FormOptions.File2 ? data.FormOptions.File2.name : ''}</i>
@@ -201,7 +205,7 @@ const Summary: React.FC<SummaryProps> = (props) => {
               {!data.FormOptions.isLoggedIn ? (
                 <Row>
                   <Col>
-                    <b>Legitimatie</b>
+                    <b>Identiteitsbewijs</b>
                   </Col>
                   <Col>
                     <i>{data.FormOptions.File3 ? data.FormOptions.File3.name : ''}</i>
