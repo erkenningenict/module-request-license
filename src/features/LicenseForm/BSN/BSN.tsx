@@ -1,5 +1,5 @@
 import React from 'react';
-import { ERKENNINGEN_LOGIN_URL } from '@erkenningen/config';
+import { ERKENNINGEN_LOGIN_URL } from '@erkenningen/config/dist/index';
 
 import { isValidBSN } from '../../../shared/validation/Bsn';
 
@@ -24,26 +24,24 @@ interface BSNProps {
 const BSN: React.FC<BSNProps> = (props) => {
   const { showGrowl } = useGrowlContext();
 
-  const [
-    checkForExistingPersonByBsn,
-    { loading, error, data },
-  ] = useCheckForExistingPersonByBsnMutation({
-    // onCompleted() {
-    //   showGrowl({
-    //     severity: 'success',
-    //     summary: 'BSN',
-    //     detail: 'Success.',
-    //   });
-    // },
-    onError(e) {
-      showGrowl({
-        severity: 'error',
-        summary: 'BSN controle niet succesvol',
-        sticky: true,
-        detail: `Er is een fout opgetreden bij de BSN controle. Probeer het later nog eens. Foutmelding: ${e.message}`,
-      });
-    },
-  });
+  const [checkForExistingPersonByBsn, { loading, error, data }] =
+    useCheckForExistingPersonByBsnMutation({
+      // onCompleted() {
+      //   showGrowl({
+      //     severity: 'success',
+      //     summary: 'BSN',
+      //     detail: 'Success.',
+      //   });
+      // },
+      onError(e) {
+        showGrowl({
+          severity: 'error',
+          summary: 'BSN controle niet succesvol',
+          sticky: true,
+          detail: `Er is een fout opgetreden bij de BSN controle. Probeer het later nog eens. Foutmelding: ${e.message}`,
+        });
+      },
+    });
 
   const validate = (): boolean => {
     let isValid = true;

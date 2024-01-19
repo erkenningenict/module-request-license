@@ -1,10 +1,23 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
+import env from 'vite-plugin-env-compatible';
+import dns from 'dns';
+
+// localhost part
+dns.setDefaultResultOrder('verbatim');
 
 export default defineConfig({
   // depending on your application, base can also be "/"
   base: '',
+  server: {
+    // this ensures that the browser opens upon server start
+    open: false,
+    host: 'localhost',
+    // this sets a default port to 3000
+    port: 3000,
+    strictPort: true
+  },
   define: {
     // here is the main update
     global: 'window',
@@ -16,11 +29,5 @@ export default defineConfig({
       ERKENNINGEN_SITE_TYPE: 'admin',
     },
   },
-  plugins: [react(), viteTsconfigPaths()],
-  server: {
-    // this ensures that the browser opens upon server start
-    open: true,
-    // this sets a default port to 3000
-    port: 3000,
-  },
+  plugins: [react(), viteTsconfigPaths(), env()],
 });
