@@ -95,7 +95,7 @@ const Document: React.FC<DocumentProps> = (props) => {
         <Col>
           <Alert type="info">
             Upload hier uw diploma, cijferlijst{' '}
-            {!props.form.values.FormOptions.isLoggedIn ? '' : 'en legitimatie'}. Toegestane
+            {!props.form.values.FormOptions.isLoggedIn ? '' : 'en identiteitsbewijs'}. Toegestane
             bestandsformaten zijn: pdf, docx, jpg, jpeg en png.
           </Alert>
         </Col>

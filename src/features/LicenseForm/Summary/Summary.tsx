@@ -176,7 +176,7 @@ const Summary: React.FC<SummaryProps> = (props) => {
               {!data.FormOptions.isLoggedIn ? (
                 <Row>
                   <Col>
-                    <b>Legitimatie</b>
+                    <b>Identiteitsbewijs</b>
                   </Col>
                   <Col>
                     <i>{data.FormOptions.File2 ? data.FormOptions.File2.name : ''}</i>
@@ -205,7 +205,7 @@ const Summary: React.FC<SummaryProps> = (props) => {
               {!data.FormOptions.isLoggedIn ? (
                 <Row>
                   <Col>
-                    <b>Legitimatie</b>
+                    <b>Identiteitsbewijs</b>
                   </Col>
                   <Col>
                     <i>{data.FormOptions.File3 ? data.FormOptions.File3.name : ''}</i>

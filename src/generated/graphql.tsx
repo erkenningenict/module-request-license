@@ -5,7 +5,7 @@ export type InputMaybe<T> = T;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions =  {}
+const defaultOptions = {};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -67,7 +67,7 @@ export enum BeoordelingStatusEnum {
   Afgekeurd = 'Afgekeurd',
   CommentaarGevraagd = 'CommentaarGevraagd',
   Goedgekeurd = 'Goedgekeurd',
-  TerBeoordeling = 'TerBeoordeling'
+  TerBeoordeling = 'TerBeoordeling',
 }
 
 export type Bijeenkomst = {
@@ -129,7 +129,7 @@ export enum CertificeringStatusEnum {
   Ingenomen = 'Ingenomen',
   Ingetrokken = 'Ingetrokken',
   TerGoedkeuring = 'TerGoedkeuring',
-  Verlopen = 'Verlopen'
+  Verlopen = 'Verlopen',
 }
 
 export type Comment = {
@@ -215,7 +215,7 @@ export type CreatePasResult = {
 
 export enum CrediteurTypeEnum {
   Persoon = 'persoon',
-  Universiteit = 'universiteit'
+  Universiteit = 'universiteit',
 }
 
 export type Cursus = {
@@ -273,7 +273,7 @@ export enum CursusDeelnameStatusEnum {
   GeslaagdPraktijkGezaktTheorie = 'GeslaagdPraktijk_GezaktTheorie',
   GeslaagdTheorieGezaktPraktijk = 'GeslaagdTheorie_GezaktPraktijk',
   Gezakt = 'Gezakt',
-  Voorlopig = 'Voorlopig'
+  Voorlopig = 'Voorlopig',
 }
 
 export type CursusNodes = {
@@ -313,14 +313,14 @@ export enum CursusStatusEnum {
   Betaald = 'Betaald',
   DeelnemersAangemeld = 'DeelnemersAangemeld',
   Goedgekeurd = 'Goedgekeurd',
-  Voorlopig = 'Voorlopig'
+  Voorlopig = 'Voorlopig',
 }
 
 export enum DebiteurTypeEnum {
   Exameninstelling = 'exameninstelling',
   Persoon = 'persoon',
   Universiteit = 'universiteit',
-  Vakgroep = 'vakgroep'
+  Vakgroep = 'vakgroep',
 }
 
 export type DeclarationInvoiceCreatedResult = {
@@ -418,7 +418,7 @@ export enum FactuurHistorieStatusEnum {
   Creditfactuur = 'Creditfactuur',
   DoorBeAfgehandeld = 'Door_BE_Afgehandeld',
   Oninbaar = 'Oninbaar',
-  OnjuistAangemaakt = 'OnjuistAangemaakt'
+  OnjuistAangemaakt = 'OnjuistAangemaakt',
 }
 
 export type FactuurNodes = {
@@ -515,7 +515,7 @@ export type HandelshuisVestiging = {
 
 export enum InkoopVerkoopEnum {
   Inkoop = 'INKOOP',
-  Verkoop = 'VERKOOP'
+  Verkoop = 'VERKOOP',
 }
 
 export type InsertPersoonHandelshuisvestigingForPersoonIdInput = {
@@ -593,7 +593,7 @@ export type Invoice = {
 export enum InvoiceCollectionsFilterEnum {
   Both = 'BOTH',
   InvoiceCollections = 'INVOICE_COLLECTIONS',
-  NormalInvoices = 'NORMAL_INVOICES'
+  NormalInvoices = 'NORMAL_INVOICES',
 }
 
 export type Kennisgebied = {
@@ -726,57 +726,46 @@ export type Mutation = {
   uploadParticipantsExcel?: Maybe<UploadParticipantsExcelResult>;
 };
 
-
 export type MutationDeletePersoonHandelshuisvestigingForPersoonIdArgs = {
   input: DeletePersoonHandelshuisvestigingForPersoonIdInput;
 };
-
 
 export type MutationDeletePersoonVakgroepForPersoonIdArgs = {
   input: DeletePersoonVakgroepForPersoonIdInput;
 };
 
-
 export type MutationInsertPersoonHandelshuisvestigingForPersoonIdArgs = {
   input: InsertPersoonHandelshuisvestigingForPersoonIdInput;
 };
-
 
 export type MutationInsertPersoonVakgroepForPersoonIdArgs = {
   input: InsertPersoonVakgroepForPersoonIdInput;
 };
 
-
 export type MutationUpdatePersoonHandelshuisvestigingForPersoonIdArgs = {
   input: UpdatePersoonHandelshuisvestigingForPersoonIdInput;
 };
-
 
 export type MutationUpdatePersoonVakgroepForPersoonIdArgs = {
   input: UpdatePersoonVakgroepForPersoonIdInput;
 };
 
-
 export type MutationAddVisitationCommentArgs = {
   input: AddVisitationCommentInput;
 };
-
 
 export type MutationAssignMonitorArgs = {
   input: AssignMonitorInput;
 };
 
-
 export type MutationAuthenticateArgs = {
   input: AuthenticateInput;
 };
-
 
 export type MutationCheckForExistingPersonByBsnArgs = {
   birthDate: Scalars['Date'];
   bsn: Scalars['Int'];
 };
-
 
 export type MutationCheckForExistingPersonByPersonDataArgs = {
   birthDate: Scalars['Date'];
@@ -784,97 +773,78 @@ export type MutationCheckForExistingPersonByPersonDataArgs = {
   lastName: Scalars['String'];
 };
 
-
 export type MutationCreateCourseArgs = {
   input: CreateCourseInput;
 };
-
 
 export type MutationCreateDeclarationInvoiceArgs = {
   input: CreateDeclarationInvoiceInput;
 };
 
-
 export type MutationCreateDuplicateCardWithoutInvoiceArgs = {
   pasId: Scalars['Int'];
 };
-
 
 export type MutationCreateInvoiceCollectionArgs = {
   input: CreateInvoiceCollectionInput;
 };
 
-
 export type MutationCreateLicenseArgs = {
   input: CreateLicenseInput;
 };
-
 
 export type MutationCreatePasArgs = {
   input: CreatePasInput;
 };
 
-
 export type MutationDecoupleLicenseArgs = {
   input: DecoupleLicenseInput;
 };
-
 
 export type MutationDeleteBijeenkomstArgs = {
   input: DeleteBijeenkomstInput;
 };
 
-
 export type MutationDeleteExamArgs = {
   input: DeleteExamInput;
 };
-
 
 export type MutationMultiUploadArgs = {
   file1: Scalars['Upload'];
   file2: Scalars['Upload'];
 };
 
-
 export type MutationMultipleUploadArgs = {
   files: Array<Scalars['Upload']>;
 };
-
 
 export type MutationRegenerateAccessTokenArgs = {
   refreshToken: Scalars['String'];
 };
 
-
 export type MutationRegisterCardReturnArgs = {
   input: RegisterCardReturnInput;
 };
-
 
 export type MutationRegisterForCourseArgs = {
   input: RegisterForCourseInput;
 };
 
-
 export type MutationRegisterForCourseByHoogleraarArgs = {
   input: RegisterForCourseByHoogleraarInput;
 };
-
 
 export type MutationRemoveBijeenkomstParticipantArgs = {
   input: RemoveBijeenkomstParticipantInput;
 };
 
-
 export type MutationRemoveParticipantArgs = {
   input: RemoveParticipantInput;
 };
 
-
 export type MutationRequestDuplicateArgs = {
   input: RequestDuplicateInput;
 };
-
 
 export type MutationRequestLicenseArgs = {
   createPersonByBsnInput?: InputMaybe<CreatePersonByBsn>;
@@ -883,76 +853,61 @@ export type MutationRequestLicenseArgs = {
   personDataInput?: InputMaybe<BasicPersonData>;
 };
 
-
 export type MutationSaveBijeenkomstArgs = {
   input: SaveBijeenkomstInput;
 };
-
 
 export type MutationSaveExamArgs = {
   input: SaveExamInput;
 };
 
-
 export type MutationSaveLocationArgs = {
   input: SaveLocationInput;
 };
-
 
 export type MutationSaveMonitorArgs = {
   input: SaveMonitorInput;
 };
 
-
 export type MutationSingleUploadArgs = {
   file: Scalars['Upload'];
 };
-
 
 export type MutationSubmitBijeenkomstParticipantsArgs = {
   input: SubmitBijeenkomstParticipantsInput;
 };
 
-
 export type MutationSubmitParticipantsArgs = {
   input: SubmitParticipantsInput;
 };
-
 
 export type MutationSubmitToRemindoArgs = {
   input: SubmitToRemindoInput;
 };
 
-
 export type MutationUnRegisterForCourseArgs = {
   CursusDeelnameID: Scalars['Int'];
 };
-
 
 export type MutationUnRegisterForCourseByCourseIdArgs = {
   input: UnRegisterForCourseByCourseIdInput;
 };
 
-
 export type MutationUnassignMonitorArgs = {
   input: UnassignMonitorInput;
 };
-
 
 export type MutationUnregisterForCourseByHoogleraarArgs = {
   input: UnregisterForCourseByHoogleraarInput;
 };
 
-
 export type MutationUpdateContactgegevensArgs = {
   input: UpdateContactgegevensInput;
 };
 
-
 export type MutationUpdateInvoiceStatusArgs = {
   input: UpdateInvoiceStatusInput;
 };
-
 
 export type MutationUpdatePlanningArgs = {
   inspectorId: Scalars['Int'];
@@ -960,16 +915,13 @@ export type MutationUpdatePlanningArgs = {
   visitDate: Scalars['Date'];
 };
 
-
 export type MutationUpdateVisitationReportArgs = {
   input: UpdateVisitationReportInput;
 };
 
-
 export type MutationUploadBijeenkomstParticipantsExcelArgs = {
   input: UploadBijeenkomstParticipantsExcelInput;
 };
-
 
 export type MutationUploadParticipantsExcelArgs = {
   input: UploadParticipantsExcelInput;
@@ -997,11 +949,9 @@ export type My = {
   personId: Scalars['Int'];
 };
 
-
 export type MyAangemeldeCursusDeelnamesPerCertificeringIdArgs = {
   certificeringId: Scalars['Int'];
 };
-
 
 export type MyCertificeringenArgs = {
   alleenGeldig?: InputMaybe<Scalars['Boolean']>;
@@ -1009,16 +959,13 @@ export type MyCertificeringenArgs = {
   perDatum?: InputMaybe<Scalars['Date']>;
 };
 
-
 export type MyCursusDeelnamesArgs = {
   certificeringId?: InputMaybe<Scalars['Int']>;
 };
 
-
 export type MyExamenInstellingLinksArgs = {
   activeOnly?: InputMaybe<Scalars['Boolean']>;
 };
-
 
 export type MyStudieresultatenArgs = {
   certificeringId?: InputMaybe<Scalars['Int']>;
@@ -1026,11 +973,9 @@ export type MyStudieresultatenArgs = {
   isExamen?: InputMaybe<Scalars['Boolean']>;
 };
 
-
 export type MyStudyProgressArgs = {
   skipParticipationDetails?: InputMaybe<Scalars['Boolean']>;
 };
-
 
 export type MyVakgroepLinksArgs = {
   activeOnly?: InputMaybe<Scalars['Boolean']>;
@@ -1103,13 +1048,13 @@ export enum PasStatusEnum {
   Betaald = 'Betaald',
   Error = 'Error',
   OnHold = 'OnHold',
-  Uitgeleverd = 'Uitgeleverd'
+  Uitgeleverd = 'Uitgeleverd',
 }
 
 export enum PaymentStatusEnum {
   All = 'ALL',
   NotPaid = 'NOT_PAID',
-  Paid = 'PAID'
+  Paid = 'PAID',
 }
 
 export type Persoon = {
@@ -1137,7 +1082,6 @@ export type Persoon = {
   Tussenvoegsel: Scalars['String'];
   Voorletters: Scalars['String'];
 };
-
 
 export type PersoonCertificeringenArgs = {
   alleenGeldig?: InputMaybe<Scalars['Boolean']>;
@@ -1212,14 +1156,14 @@ export enum ProductConfiguratieCodeEnum {
   Mgek = 'MGEK',
   Mgeki = 'MGEKI',
   Mgem = 'MGEM',
-  Mgemi = 'MGEMI'
+  Mgemi = 'MGEMI',
 }
 
 export enum ProductEnum {
   D1 = 'D1',
   D2 = 'D2',
   D3 = 'D3',
-  D4 = 'D4'
+  D4 = 'D4',
 }
 
 export type Query = {
@@ -1290,181 +1234,146 @@ export type Query = {
   uploads?: Maybe<Array<Maybe<File>>>;
 };
 
-
 export type QueryBijeenkomstDetailsArgs = {
   input: SearchBijeenkomstInput;
 };
-
 
 export type QueryBijeenkomstenListArgs = {
   input: BijeenkomstenListInput;
 };
 
-
 export type QueryCertificatenArgs = {
   idList?: InputMaybe<Array<Scalars['Int']>>;
 };
-
 
 export type QueryCertificeringenArgs = {
   personId: Scalars['Int'];
 };
 
-
 export type QueryContactgegevensArgs = {
   ContactgegevensID: Scalars['Int'];
 };
-
 
 export type QueryCursusDeelnameDetailsArgs = {
   cursusDeelnameId: Scalars['Int'];
 };
 
-
 export type QueryCursusDeelnamesArgs = {
   certificeringId?: InputMaybe<Scalars['Int']>;
 };
-
 
 export type QueryCursusSessiesArgs = {
   input: SearchCourseSessionsInput;
 };
 
-
 export type QueryExamDetailsArgs = {
   input: SearchExamInput;
 };
 
-
 export type QueryExamSpecialtiesArgs = {
   input: ExamSpecialtiesInput;
 };
-
 
 export type QueryExamenInstellingenArgs = {
   findById?: InputMaybe<Scalars['Int']>;
   isActive?: InputMaybe<Scalars['Boolean']>;
 };
 
-
 export type QueryExamsArgs = {
   input: ExamsInput;
 };
-
 
 export type QueryGetCursusDeelnemerArgs = {
   input?: InputMaybe<GetCursusDeelnemerInput>;
 };
 
-
 export type QueryGetCursusDeelnemersArgs = {
   input?: InputMaybe<GetCursusDeelnemersInput>;
 };
-
 
 export type QueryGetCursusInfoForHoogleraarArgs = {
   input?: InputMaybe<GetCursusInfoForHoogleraarInput>;
 };
 
-
 export type QueryGetCursusSessiesForHoogleraarArgs = {
   input?: InputMaybe<CursusSessiesForHoogleraarInput>;
 };
-
 
 export type QueryGetHandelshuisVestigingenArgs = {
   findById?: InputMaybe<Scalars['Int']>;
   isActive?: InputMaybe<Scalars['Boolean']>;
 };
 
-
 export type QueryGetHandelshuizenArgs = {
   findById?: InputMaybe<Scalars['Int']>;
   isActive?: InputMaybe<Scalars['Boolean']>;
 };
 
-
 export type QueryPersoonArgs = {
   PersoonID: Scalars['Int'];
 };
-
 
 export type QuerySearchCursusDeelnemersArgs = {
   input?: InputMaybe<SearchCursusDeelnemersInput>;
 };
 
-
 export type QuerySearchLocationsArgs = {
   input: SearchLocationsInput;
 };
-
 
 export type QuerySearchMonitorsArgs = {
   input: SearchMonitorsInput;
 };
 
-
 export type QuerySearchSpecialtiesArgs = {
   input: SearchSpecialtyInput;
 };
-
 
 export type QuerySessieArgs = {
   sessieId: Scalars['Int'];
 };
 
-
 export type QuerySpecialtiesArgs = {
   input: SpecialtiesInput;
 };
-
 
 export type QuerySpecialtyArgs = {
   fullDetails?: InputMaybe<Scalars['Boolean']>;
   vakId: Scalars['Int'];
 };
 
-
 export type QueryVakgroepenArgs = {
   findById?: InputMaybe<Scalars['Int']>;
   isActive?: InputMaybe<Scalars['Boolean']>;
 };
 
-
 export type QueryVisitationArgs = {
   input: VisitationInput;
 };
-
 
 export type QueryVisitationDeclarationArgs = {
   input: VisitationInput;
 };
 
-
 export type QueryVisitationsArgs = {
   input: VisitationsInput;
 };
-
 
 export type QueryVooropleidingenArgs = {
   codes?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-
 export type QueryCertificatesByPreEducationArgs = {
   code: Scalars['String'];
 };
-
 
 export type QueryGetInspectionPlanningArgs = {
   input: GetInspectionPlanningInput;
 };
 
-
 export type QueryGetInspectionReportsArgs = {
   input: GetInspectionReportsInput;
 };
-
 
 export type QueryGetStudyProgressByLicenseIdArgs = {
   certificeringId: Scalars['Int'];
@@ -1472,13 +1381,11 @@ export type QueryGetStudyProgressByLicenseIdArgs = {
   studyResultsMustBePaid?: InputMaybe<Scalars['Boolean']>;
 };
 
-
 export type QueryGetStudyProgressByLicenseNumberArgs = {
   nummerweergave: Scalars['SafeString'];
   skipParticipationDetails?: InputMaybe<Scalars['Boolean']>;
   studyResultsMustBePaid?: InputMaybe<Scalars['Boolean']>;
 };
-
 
 export type QueryGetStudyProgressByPersonIdArgs = {
   personId: Scalars['Int'];
@@ -1486,11 +1393,9 @@ export type QueryGetStudyProgressByPersonIdArgs = {
   studyResultsMustBePaid?: InputMaybe<Scalars['Boolean']>;
 };
 
-
 export type QueryHasDuplicatePendingArgs = {
   licenseId: Scalars['Int'];
 };
-
 
 export type QueryInvoicesArgs = {
   filterInvoices?: InputMaybe<FilterInvoicesInput>;
@@ -1499,16 +1404,13 @@ export type QueryInvoicesArgs = {
   pageSize: Scalars['Int'];
 };
 
-
 export type QueryIsLicenseValidForSpecialtyArgs = {
   input: IsLicenseValidForSpecialtyInput;
 };
 
-
 export type QuerySearchCardArgs = {
   licenseNumber: Scalars['SafeString'];
 };
-
 
 export type QueryTariefByCertificaatCodeArgs = {
   certificaatCode: Scalars['String'];
@@ -1665,7 +1567,7 @@ export type Sessie = {
 
 export enum SortDirectionEnum {
   Asc = 'ASC',
-  Desc = 'DESC'
+  Desc = 'DESC',
 }
 
 export type StatisticsPerOrganizer = {
@@ -1700,7 +1602,7 @@ export type Studieresultaat = {
 export enum StudieresultaatStatusEnum {
   Betaald = 'Betaald',
   Definitief = 'Definitief',
-  Voorlopig = 'Voorlopig'
+  Voorlopig = 'Voorlopig',
 }
 
 export type StudyProgress = {
@@ -1903,7 +1805,7 @@ export enum VakExamenTypeEnum {
   Et = 'ET',
   HercertificeringsExamen = 'HERCERTIFICERINGS_EXAMEN',
   StartExamen = 'START_EXAMEN',
-  Tb = 'TB'
+  Tb = 'TB',
 }
 
 export enum VakStatusEnum {
@@ -1913,7 +1815,7 @@ export enum VakStatusEnum {
   Ingediend = 'Ingediend',
   Ingetrokken = 'Ingetrokken',
   Voorlopig = 'Voorlopig',
-  WordtBeoordeeld = 'WordtBeoordeeld'
+  WordtBeoordeeld = 'WordtBeoordeeld',
 }
 
 export type Vakgroep = {
@@ -2015,7 +1917,7 @@ export type VisitatieBeoordelingCategorieVraag = {
 export enum VisitatieStatusEnum {
   Ingediend = 'Ingediend',
   Ingepland = 'Ingepland',
-  RapportWordtOpgesteld = 'RapportWordtOpgesteld'
+  RapportWordtOpgesteld = 'RapportWordtOpgesteld',
 }
 
 export type VisitationDeclaration = {
@@ -2067,11 +1969,11 @@ export type VooropleidingCategorie = {
 
 export enum VrijstellingCertificaatStatusEnum {
   Betaald = 'Betaald',
-  VoorlopigBetaald = 'VoorlopigBetaald'
+  VoorlopigBetaald = 'VoorlopigBetaald',
 }
 
 export enum VrijstellingsVerzoekBetaalStatusEnum {
-  Betaald = 'Betaald'
+  Betaald = 'Betaald',
 }
 
 export enum VrijstellingsVerzoekStatusEnum {
@@ -2079,7 +1981,7 @@ export enum VrijstellingsVerzoekStatusEnum {
   Afgekeurd = 'Afgekeurd',
   Betaald = 'Betaald',
   Geannuleerd = 'Geannuleerd',
-  Goedgekeurd = 'Goedgekeurd'
+  Goedgekeurd = 'Goedgekeurd',
 }
 
 export type AddVisitationCommentInput = {
@@ -2336,7 +2238,7 @@ export type RequestLicenseInput = {
   dateReceived: Scalars['Date'];
   /**
    * File to upload 1.
-   * Eigen Verklaring or KVK uittreksel (legitimatiebewijs) or Registration certificate (inschrijvingsbewijs opleiding adviseren)
+   * Eigen Verklaring or KVK uittreksel (identiteitsbewijs) or Registration certificate (inschrijvingsbewijs opleiding adviseren)
    */
   file1: Scalars['Upload'];
   /**
@@ -2521,40 +2423,111 @@ export type VisitationsInput = {
   to?: InputMaybe<Scalars['Date']>;
 };
 
-export type GetMyQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetMyQueryVariables = Exact<{ [key: string]: never }>;
 
+export type GetMyQuery = {
+  my?: {
+    __typename?: 'My';
+    Persoon: {
+      __typename?: 'Persoon';
+      PersoonID: number;
+      Voorletters: string;
+      Tussenvoegsel: string;
+      Achternaam: string;
+      Geslacht: string;
+      Nationaliteit: string;
+      Geboortedatum?: any;
+      IsGbaGeregistreerd?: boolean;
+      BSN?: number;
+      Contactgegevens: {
+        __typename?: 'Contactgegevens';
+        ContactgegevensID: number;
+        Adresregel1: string;
+        Adresregel2?: string;
+        Huisnummer: string;
+        HuisnummerToevoeging?: string;
+        Postcode: string;
+        Woonplaats: string;
+        Land: string;
+        Email?: string;
+      };
+    };
+    Certificeringen?: Array<{
+      __typename?: 'Certificering';
+      CertificeringID: number;
+      Nummer: string;
+      BeginDatum: any;
+      EindDatum: any;
+      Certificaat?: { __typename?: 'Certificaat'; Naam: string; Code: string };
+      CertificeringAantekeningen?: Array<{
+        __typename?: 'CertificeringAantekening';
+        AantekeningCode: string;
+      }>;
+    }>;
+  };
+};
 
-export type GetMyQuery = { my?: { __typename?: 'My', Persoon: { __typename?: 'Persoon', PersoonID: number, Voorletters: string, Tussenvoegsel: string, Achternaam: string, Geslacht: string, Nationaliteit: string, Geboortedatum?: any, IsGbaGeregistreerd?: boolean, BSN?: number, Contactgegevens: { __typename?: 'Contactgegevens', ContactgegevensID: number, Adresregel1: string, Adresregel2?: string, Huisnummer: string, HuisnummerToevoeging?: string, Postcode: string, Woonplaats: string, Land: string, Email?: string } }, Certificeringen?: Array<{ __typename?: 'Certificering', CertificeringID: number, Nummer: string, BeginDatum: any, EindDatum: any, Certificaat?: { __typename?: 'Certificaat', Naam: string, Code: string }, CertificeringAantekeningen?: Array<{ __typename?: 'CertificeringAantekening', AantekeningCode: string }> }> } };
+export type GetCertificatesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetCertificatesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetCertificatesQuery = { Certificaten?: Array<{ __typename?: 'Certificaat', CertificaatID: number, Naam: string, Code: string }> };
+export type GetCertificatesQuery = {
+  Certificaten?: Array<{
+    __typename?: 'Certificaat';
+    CertificaatID: number;
+    Naam: string;
+    Code: string;
+  }>;
+};
 
 export type GetCertificatePriceQueryVariables = Exact<{
   certificaatCode: Scalars['String'];
   vooropleidingID: Scalars['Int'];
 }>;
 
+export type GetCertificatePriceQuery = {
+  tariefByCertificaatCode?: { __typename?: 'TotaalExtBtwTarief'; TotaalExtBtw?: number };
+};
 
-export type GetCertificatePriceQuery = { tariefByCertificaatCode?: { __typename?: 'TotaalExtBtwTarief', TotaalExtBtw?: number } };
+export type GetCountriesAndNationalitiesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetCountriesAndNationalitiesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetCountriesAndNationalitiesQuery = {
+  Landen: Array<{ __typename?: 'Landen'; Text: string; Value: string }>;
+  Nationaliteiten: Array<{ __typename?: 'Nationaliteiten'; Text: string; Value: string }>;
+};
 
+export type GetEducationDataQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetCountriesAndNationalitiesQuery = { Landen: Array<{ __typename?: 'Landen', Text: string, Value: string }>, Nationaliteiten: Array<{ __typename?: 'Nationaliteiten', Text: string, Value: string }> };
-
-export type GetEducationDataQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetEducationDataQuery = { preEducationCategories: Array<{ __typename?: 'VooropleidingCategorie', VooropleidingCategorieID: number, Naam: string }>, Vooropleidingen: Array<{ __typename?: 'Vooropleiding', VooropleidingID: number, Code: string, Naam: string, Omschrijving: string, Categorie: { __typename?: 'VooropleidingCategorie', VooropleidingCategorieID: number, Naam: string } }> };
+export type GetEducationDataQuery = {
+  preEducationCategories: Array<{
+    __typename?: 'VooropleidingCategorie';
+    VooropleidingCategorieID: number;
+    Naam: string;
+  }>;
+  Vooropleidingen: Array<{
+    __typename?: 'Vooropleiding';
+    VooropleidingID: number;
+    Code: string;
+    Naam: string;
+    Omschrijving: string;
+    Categorie: {
+      __typename?: 'VooropleidingCategorie';
+      VooropleidingCategorieID: number;
+      Naam: string;
+    };
+  }>;
+};
 
 export type CertificatesByPreEducationQueryVariables = Exact<{
   code: Scalars['String'];
 }>;
 
-
-export type CertificatesByPreEducationQuery = { certificatesByPreEducation: Array<{ __typename?: 'Certificaat', CertificaatID: number, Code: string, Naam: string }> };
+export type CertificatesByPreEducationQuery = {
+  certificatesByPreEducation: Array<{
+    __typename?: 'Certificaat';
+    CertificaatID: number;
+    Code: string;
+    Naam: string;
+  }>;
+};
 
 export type RequestLicenseMutationVariables = Exact<{
   input: RequestLicenseInput;
@@ -2563,59 +2536,71 @@ export type RequestLicenseMutationVariables = Exact<{
   createPersonByPersonDataInput?: InputMaybe<CreatePersonByPersonData>;
 }>;
 
-
-export type RequestLicenseMutation = { requestLicense: { __typename?: 'requestLicenseResult', VrijstellingsVerzoekID: number, invoiceLink: string, requestFormPdfLink: string } };
+export type RequestLicenseMutation = {
+  requestLicense: {
+    __typename?: 'requestLicenseResult';
+    VrijstellingsVerzoekID: number;
+    invoiceLink: string;
+    requestFormPdfLink: string;
+  };
+};
 
 export type CheckForExistingPersonByBsnMutationVariables = Exact<{
   bsn: Scalars['Int'];
   birthDate: Scalars['Date'];
 }>;
 
-
-export type CheckForExistingPersonByBsnMutation = { checkForExistingPersonByBsn?: { __typename?: 'checkForExistingPersonByBsnResult', personFoundInDatabase: boolean, personFoundInGba?: boolean, message?: string, persons?: Array<{ __typename?: 'Persoon', PersoonID: number }> } };
-
+export type CheckForExistingPersonByBsnMutation = {
+  checkForExistingPersonByBsn?: {
+    __typename?: 'checkForExistingPersonByBsnResult';
+    personFoundInDatabase: boolean;
+    personFoundInGba?: boolean;
+    message?: string;
+    persons?: Array<{ __typename?: 'Persoon'; PersoonID: number }>;
+  };
+};
 
 export const GetMyDocument = gql`
-    query GetMy {
-  my {
-    Persoon {
-      PersoonID
-      Voorletters
-      Tussenvoegsel
-      Achternaam
-      Geslacht
-      Nationaliteit
-      Geboortedatum
-      IsGbaGeregistreerd
-      BSN
-      Contactgegevens {
-        ContactgegevensID
-        Adresregel1
-        Adresregel2
-        Huisnummer
-        HuisnummerToevoeging
-        Postcode
-        Woonplaats
-        Land
-        Email
+  query GetMy {
+    my {
+      Persoon {
+        PersoonID
+        Voorletters
+        Tussenvoegsel
+        Achternaam
+        Geslacht
+        Nationaliteit
+        Geboortedatum
+        IsGbaGeregistreerd
+        BSN
+        Contactgegevens {
+          ContactgegevensID
+          Adresregel1
+          Adresregel2
+          Huisnummer
+          HuisnummerToevoeging
+          Postcode
+          Woonplaats
+          Land
+          Email
+        }
       }
-    }
-    Certificeringen(alleenGeldig: true) {
-      CertificeringID
-      Nummer
-      BeginDatum
-      EindDatum
-      Certificaat {
-        Naam
-        Code
-      }
-      CertificeringAantekeningen {
-        AantekeningCode
+      Certificeringen(alleenGeldig: true) {
+        CertificeringID
+        Nummer
+        BeginDatum
+        EindDatum
+        Certificaat {
+          Naam
+          Code
+        }
+        CertificeringAantekeningen {
+          AantekeningCode
+        }
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useGetMyQuery__
@@ -2632,26 +2617,30 @@ export const GetMyDocument = gql`
  *   },
  * });
  */
-export function useGetMyQuery(baseOptions?: Apollo.QueryHookOptions<GetMyQuery, GetMyQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetMyQuery, GetMyQueryVariables>(GetMyDocument, options);
-      }
-export function useGetMyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMyQuery, GetMyQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetMyQuery, GetMyQueryVariables>(GetMyDocument, options);
-        }
+export function useGetMyQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetMyQuery, GetMyQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetMyQuery, GetMyQueryVariables>(GetMyDocument, options);
+}
+export function useGetMyLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetMyQuery, GetMyQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetMyQuery, GetMyQueryVariables>(GetMyDocument, options);
+}
 export type GetMyQueryHookResult = ReturnType<typeof useGetMyQuery>;
 export type GetMyLazyQueryHookResult = ReturnType<typeof useGetMyLazyQuery>;
 export type GetMyQueryResult = Apollo.QueryResult<GetMyQuery, GetMyQueryVariables>;
 export const GetCertificatesDocument = gql`
-    query GetCertificates {
-  Certificaten {
-    CertificaatID
-    Naam
-    Code
+  query GetCertificates {
+    Certificaten {
+      CertificaatID
+      Naam
+      Code
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetCertificatesQuery__
@@ -2668,28 +2657,41 @@ export const GetCertificatesDocument = gql`
  *   },
  * });
  */
-export function useGetCertificatesQuery(baseOptions?: Apollo.QueryHookOptions<GetCertificatesQuery, GetCertificatesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetCertificatesQuery, GetCertificatesQueryVariables>(GetCertificatesDocument, options);
-      }
-export function useGetCertificatesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCertificatesQuery, GetCertificatesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetCertificatesQuery, GetCertificatesQueryVariables>(GetCertificatesDocument, options);
-        }
+export function useGetCertificatesQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetCertificatesQuery, GetCertificatesQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetCertificatesQuery, GetCertificatesQueryVariables>(
+    GetCertificatesDocument,
+    options,
+  );
+}
+export function useGetCertificatesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetCertificatesQuery, GetCertificatesQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetCertificatesQuery, GetCertificatesQueryVariables>(
+    GetCertificatesDocument,
+    options,
+  );
+}
 export type GetCertificatesQueryHookResult = ReturnType<typeof useGetCertificatesQuery>;
 export type GetCertificatesLazyQueryHookResult = ReturnType<typeof useGetCertificatesLazyQuery>;
-export type GetCertificatesQueryResult = Apollo.QueryResult<GetCertificatesQuery, GetCertificatesQueryVariables>;
+export type GetCertificatesQueryResult = Apollo.QueryResult<
+  GetCertificatesQuery,
+  GetCertificatesQueryVariables
+>;
 export const GetCertificatePriceDocument = gql`
-    query GetCertificatePrice($certificaatCode: String!, $vooropleidingID: Int!) {
-  tariefByCertificaatCode(
-    certificaatCode: $certificaatCode
-    individueleAanvraag: true
-    vooropleidingID: $vooropleidingID
-  ) {
-    TotaalExtBtw
+  query GetCertificatePrice($certificaatCode: String!, $vooropleidingID: Int!) {
+    tariefByCertificaatCode(
+      certificaatCode: $certificaatCode
+      individueleAanvraag: true
+      vooropleidingID: $vooropleidingID
+    ) {
+      TotaalExtBtw
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetCertificatePriceQuery__
@@ -2708,29 +2710,47 @@ export const GetCertificatePriceDocument = gql`
  *   },
  * });
  */
-export function useGetCertificatePriceQuery(baseOptions: Apollo.QueryHookOptions<GetCertificatePriceQuery, GetCertificatePriceQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetCertificatePriceQuery, GetCertificatePriceQueryVariables>(GetCertificatePriceDocument, options);
-      }
-export function useGetCertificatePriceLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCertificatePriceQuery, GetCertificatePriceQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetCertificatePriceQuery, GetCertificatePriceQueryVariables>(GetCertificatePriceDocument, options);
-        }
-export type GetCertificatePriceQueryHookResult = ReturnType<typeof useGetCertificatePriceQuery>;
-export type GetCertificatePriceLazyQueryHookResult = ReturnType<typeof useGetCertificatePriceLazyQuery>;
-export type GetCertificatePriceQueryResult = Apollo.QueryResult<GetCertificatePriceQuery, GetCertificatePriceQueryVariables>;
-export const GetCountriesAndNationalitiesDocument = gql`
-    query GetCountriesAndNationalities {
-  Landen {
-    Text
-    Value
-  }
-  Nationaliteiten {
-    Text
-    Value
-  }
+export function useGetCertificatePriceQuery(
+  baseOptions: Apollo.QueryHookOptions<GetCertificatePriceQuery, GetCertificatePriceQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetCertificatePriceQuery, GetCertificatePriceQueryVariables>(
+    GetCertificatePriceDocument,
+    options,
+  );
 }
-    `;
+export function useGetCertificatePriceLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetCertificatePriceQuery,
+    GetCertificatePriceQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetCertificatePriceQuery, GetCertificatePriceQueryVariables>(
+    GetCertificatePriceDocument,
+    options,
+  );
+}
+export type GetCertificatePriceQueryHookResult = ReturnType<typeof useGetCertificatePriceQuery>;
+export type GetCertificatePriceLazyQueryHookResult = ReturnType<
+  typeof useGetCertificatePriceLazyQuery
+>;
+export type GetCertificatePriceQueryResult = Apollo.QueryResult<
+  GetCertificatePriceQuery,
+  GetCertificatePriceQueryVariables
+>;
+export const GetCountriesAndNationalitiesDocument = gql`
+  query GetCountriesAndNationalities {
+    Landen {
+      Text
+      Value
+    }
+    Nationaliteiten {
+      Text
+      Value
+    }
+  }
+`;
 
 /**
  * __useGetCountriesAndNationalitiesQuery__
@@ -2747,35 +2767,58 @@ export const GetCountriesAndNationalitiesDocument = gql`
  *   },
  * });
  */
-export function useGetCountriesAndNationalitiesQuery(baseOptions?: Apollo.QueryHookOptions<GetCountriesAndNationalitiesQuery, GetCountriesAndNationalitiesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetCountriesAndNationalitiesQuery, GetCountriesAndNationalitiesQueryVariables>(GetCountriesAndNationalitiesDocument, options);
-      }
-export function useGetCountriesAndNationalitiesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCountriesAndNationalitiesQuery, GetCountriesAndNationalitiesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetCountriesAndNationalitiesQuery, GetCountriesAndNationalitiesQueryVariables>(GetCountriesAndNationalitiesDocument, options);
-        }
-export type GetCountriesAndNationalitiesQueryHookResult = ReturnType<typeof useGetCountriesAndNationalitiesQuery>;
-export type GetCountriesAndNationalitiesLazyQueryHookResult = ReturnType<typeof useGetCountriesAndNationalitiesLazyQuery>;
-export type GetCountriesAndNationalitiesQueryResult = Apollo.QueryResult<GetCountriesAndNationalitiesQuery, GetCountriesAndNationalitiesQueryVariables>;
+export function useGetCountriesAndNationalitiesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetCountriesAndNationalitiesQuery,
+    GetCountriesAndNationalitiesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetCountriesAndNationalitiesQuery,
+    GetCountriesAndNationalitiesQueryVariables
+  >(GetCountriesAndNationalitiesDocument, options);
+}
+export function useGetCountriesAndNationalitiesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetCountriesAndNationalitiesQuery,
+    GetCountriesAndNationalitiesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetCountriesAndNationalitiesQuery,
+    GetCountriesAndNationalitiesQueryVariables
+  >(GetCountriesAndNationalitiesDocument, options);
+}
+export type GetCountriesAndNationalitiesQueryHookResult = ReturnType<
+  typeof useGetCountriesAndNationalitiesQuery
+>;
+export type GetCountriesAndNationalitiesLazyQueryHookResult = ReturnType<
+  typeof useGetCountriesAndNationalitiesLazyQuery
+>;
+export type GetCountriesAndNationalitiesQueryResult = Apollo.QueryResult<
+  GetCountriesAndNationalitiesQuery,
+  GetCountriesAndNationalitiesQueryVariables
+>;
 export const GetEducationDataDocument = gql`
-    query GetEducationData {
-  preEducationCategories {
-    VooropleidingCategorieID
-    Naam
-  }
-  Vooropleidingen(codes: []) {
-    VooropleidingID
-    Code
-    Naam
-    Omschrijving
-    Categorie {
+  query GetEducationData {
+    preEducationCategories {
       VooropleidingCategorieID
       Naam
     }
+    Vooropleidingen(codes: []) {
+      VooropleidingID
+      Code
+      Naam
+      Omschrijving
+      Categorie {
+        VooropleidingCategorieID
+        Naam
+      }
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetEducationDataQuery__
@@ -2792,26 +2835,39 @@ export const GetEducationDataDocument = gql`
  *   },
  * });
  */
-export function useGetEducationDataQuery(baseOptions?: Apollo.QueryHookOptions<GetEducationDataQuery, GetEducationDataQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetEducationDataQuery, GetEducationDataQueryVariables>(GetEducationDataDocument, options);
-      }
-export function useGetEducationDataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetEducationDataQuery, GetEducationDataQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetEducationDataQuery, GetEducationDataQueryVariables>(GetEducationDataDocument, options);
-        }
+export function useGetEducationDataQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetEducationDataQuery, GetEducationDataQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetEducationDataQuery, GetEducationDataQueryVariables>(
+    GetEducationDataDocument,
+    options,
+  );
+}
+export function useGetEducationDataLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetEducationDataQuery, GetEducationDataQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetEducationDataQuery, GetEducationDataQueryVariables>(
+    GetEducationDataDocument,
+    options,
+  );
+}
 export type GetEducationDataQueryHookResult = ReturnType<typeof useGetEducationDataQuery>;
 export type GetEducationDataLazyQueryHookResult = ReturnType<typeof useGetEducationDataLazyQuery>;
-export type GetEducationDataQueryResult = Apollo.QueryResult<GetEducationDataQuery, GetEducationDataQueryVariables>;
+export type GetEducationDataQueryResult = Apollo.QueryResult<
+  GetEducationDataQuery,
+  GetEducationDataQueryVariables
+>;
 export const CertificatesByPreEducationDocument = gql`
-    query CertificatesByPreEducation($code: String!) {
-  certificatesByPreEducation(code: $code) {
-    CertificaatID
-    Code
-    Naam
+  query CertificatesByPreEducation($code: String!) {
+    certificatesByPreEducation(code: $code) {
+      CertificaatID
+      Code
+      Naam
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useCertificatesByPreEducationQuery__
@@ -2829,32 +2885,63 @@ export const CertificatesByPreEducationDocument = gql`
  *   },
  * });
  */
-export function useCertificatesByPreEducationQuery(baseOptions: Apollo.QueryHookOptions<CertificatesByPreEducationQuery, CertificatesByPreEducationQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<CertificatesByPreEducationQuery, CertificatesByPreEducationQueryVariables>(CertificatesByPreEducationDocument, options);
-      }
-export function useCertificatesByPreEducationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CertificatesByPreEducationQuery, CertificatesByPreEducationQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<CertificatesByPreEducationQuery, CertificatesByPreEducationQueryVariables>(CertificatesByPreEducationDocument, options);
-        }
-export type CertificatesByPreEducationQueryHookResult = ReturnType<typeof useCertificatesByPreEducationQuery>;
-export type CertificatesByPreEducationLazyQueryHookResult = ReturnType<typeof useCertificatesByPreEducationLazyQuery>;
-export type CertificatesByPreEducationQueryResult = Apollo.QueryResult<CertificatesByPreEducationQuery, CertificatesByPreEducationQueryVariables>;
-export const RequestLicenseDocument = gql`
-    mutation requestLicense($input: requestLicenseInput!, $personDataInput: basicPersonData, $createPersonByBsnInput: createPersonByBsn, $createPersonByPersonDataInput: createPersonByPersonData) {
-  requestLicense(
-    input: $input
-    personDataInput: $personDataInput
-    createPersonByBsnInput: $createPersonByBsnInput
-    createPersonByPersonDataInput: $createPersonByPersonDataInput
-  ) {
-    VrijstellingsVerzoekID
-    invoiceLink
-    requestFormPdfLink
-  }
+export function useCertificatesByPreEducationQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    CertificatesByPreEducationQuery,
+    CertificatesByPreEducationQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<CertificatesByPreEducationQuery, CertificatesByPreEducationQueryVariables>(
+    CertificatesByPreEducationDocument,
+    options,
+  );
 }
-    `;
-export type RequestLicenseMutationFn = Apollo.MutationFunction<RequestLicenseMutation, RequestLicenseMutationVariables>;
+export function useCertificatesByPreEducationLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    CertificatesByPreEducationQuery,
+    CertificatesByPreEducationQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    CertificatesByPreEducationQuery,
+    CertificatesByPreEducationQueryVariables
+  >(CertificatesByPreEducationDocument, options);
+}
+export type CertificatesByPreEducationQueryHookResult = ReturnType<
+  typeof useCertificatesByPreEducationQuery
+>;
+export type CertificatesByPreEducationLazyQueryHookResult = ReturnType<
+  typeof useCertificatesByPreEducationLazyQuery
+>;
+export type CertificatesByPreEducationQueryResult = Apollo.QueryResult<
+  CertificatesByPreEducationQuery,
+  CertificatesByPreEducationQueryVariables
+>;
+export const RequestLicenseDocument = gql`
+  mutation requestLicense(
+    $input: requestLicenseInput!
+    $personDataInput: basicPersonData
+    $createPersonByBsnInput: createPersonByBsn
+    $createPersonByPersonDataInput: createPersonByPersonData
+  ) {
+    requestLicense(
+      input: $input
+      personDataInput: $personDataInput
+      createPersonByBsnInput: $createPersonByBsnInput
+      createPersonByPersonDataInput: $createPersonByPersonDataInput
+    ) {
+      VrijstellingsVerzoekID
+      invoiceLink
+      requestFormPdfLink
+    }
+  }
+`;
+export type RequestLicenseMutationFn = Apollo.MutationFunction<
+  RequestLicenseMutation,
+  RequestLicenseMutationVariables
+>;
 
 /**
  * __useRequestLicenseMutation__
@@ -2876,26 +2963,37 @@ export type RequestLicenseMutationFn = Apollo.MutationFunction<RequestLicenseMut
  *   },
  * });
  */
-export function useRequestLicenseMutation(baseOptions?: Apollo.MutationHookOptions<RequestLicenseMutation, RequestLicenseMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RequestLicenseMutation, RequestLicenseMutationVariables>(RequestLicenseDocument, options);
-      }
+export function useRequestLicenseMutation(
+  baseOptions?: Apollo.MutationHookOptions<RequestLicenseMutation, RequestLicenseMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<RequestLicenseMutation, RequestLicenseMutationVariables>(
+    RequestLicenseDocument,
+    options,
+  );
+}
 export type RequestLicenseMutationHookResult = ReturnType<typeof useRequestLicenseMutation>;
 export type RequestLicenseMutationResult = Apollo.MutationResult<RequestLicenseMutation>;
-export type RequestLicenseMutationOptions = Apollo.BaseMutationOptions<RequestLicenseMutation, RequestLicenseMutationVariables>;
+export type RequestLicenseMutationOptions = Apollo.BaseMutationOptions<
+  RequestLicenseMutation,
+  RequestLicenseMutationVariables
+>;
 export const CheckForExistingPersonByBsnDocument = gql`
-    mutation checkForExistingPersonByBsn($bsn: Int!, $birthDate: Date!) {
-  checkForExistingPersonByBsn(bsn: $bsn, birthDate: $birthDate) {
-    personFoundInDatabase
-    personFoundInGba
-    message
-    persons {
-      PersoonID
+  mutation checkForExistingPersonByBsn($bsn: Int!, $birthDate: Date!) {
+    checkForExistingPersonByBsn(bsn: $bsn, birthDate: $birthDate) {
+      personFoundInDatabase
+      personFoundInGba
+      message
+      persons {
+        PersoonID
+      }
     }
   }
-}
-    `;
-export type CheckForExistingPersonByBsnMutationFn = Apollo.MutationFunction<CheckForExistingPersonByBsnMutation, CheckForExistingPersonByBsnMutationVariables>;
+`;
+export type CheckForExistingPersonByBsnMutationFn = Apollo.MutationFunction<
+  CheckForExistingPersonByBsnMutation,
+  CheckForExistingPersonByBsnMutationVariables
+>;
 
 /**
  * __useCheckForExistingPersonByBsnMutation__
@@ -2915,10 +3013,24 @@ export type CheckForExistingPersonByBsnMutationFn = Apollo.MutationFunction<Chec
  *   },
  * });
  */
-export function useCheckForExistingPersonByBsnMutation(baseOptions?: Apollo.MutationHookOptions<CheckForExistingPersonByBsnMutation, CheckForExistingPersonByBsnMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CheckForExistingPersonByBsnMutation, CheckForExistingPersonByBsnMutationVariables>(CheckForExistingPersonByBsnDocument, options);
-      }
-export type CheckForExistingPersonByBsnMutationHookResult = ReturnType<typeof useCheckForExistingPersonByBsnMutation>;
-export type CheckForExistingPersonByBsnMutationResult = Apollo.MutationResult<CheckForExistingPersonByBsnMutation>;
-export type CheckForExistingPersonByBsnMutationOptions = Apollo.BaseMutationOptions<CheckForExistingPersonByBsnMutation, CheckForExistingPersonByBsnMutationVariables>;
+export function useCheckForExistingPersonByBsnMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CheckForExistingPersonByBsnMutation,
+    CheckForExistingPersonByBsnMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    CheckForExistingPersonByBsnMutation,
+    CheckForExistingPersonByBsnMutationVariables
+  >(CheckForExistingPersonByBsnDocument, options);
+}
+export type CheckForExistingPersonByBsnMutationHookResult = ReturnType<
+  typeof useCheckForExistingPersonByBsnMutation
+>;
+export type CheckForExistingPersonByBsnMutationResult =
+  Apollo.MutationResult<CheckForExistingPersonByBsnMutation>;
+export type CheckForExistingPersonByBsnMutationOptions = Apollo.BaseMutationOptions<
+  CheckForExistingPersonByBsnMutation,
+  CheckForExistingPersonByBsnMutationVariables
+>;
