@@ -17,4 +17,7 @@ export default defineConfig({
     strictPort: true,
   },
   plugins: [react()],
+  build: {
+    outDir: 'build',
+  },
 });
