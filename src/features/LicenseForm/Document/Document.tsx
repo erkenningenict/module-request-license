@@ -95,7 +95,7 @@ const Document: React.FC<DocumentProps> = (props) => {
         <Col>
           <Alert type="info">
             Upload hier uw diploma, cijferlijst{' '}
-            {!props.form.values.FormOptions.isLoggedIn ? '' : 'en legitimatie'}. Toegestane
+            {!props.form.values.FormOptions.isLoggedIn ? '' : 'en identiteitsbewijs'}. Toegestane
             bestandsformaten zijn: pdf, docx, jpg, jpeg en png.
           </Alert>
         </Col>
@@ -121,7 +121,9 @@ const Document: React.FC<DocumentProps> = (props) => {
               {props.form.values.FormOptions.File1 ? props.form.values.FormOptions.File1.name : ''}
             </i>
           </span>
-          <FormItem form={props.form} name="FormOptions.File1" />
+          <FormItem form={props.form} name="FormOptions.File1">
+            {''}
+          </FormItem>
         </Col>
       </Row>
       <Row>
@@ -145,14 +147,16 @@ const Document: React.FC<DocumentProps> = (props) => {
               {props.form.values.FormOptions.File2 ? props.form.values.FormOptions.File2.name : ''}
             </i>
           </span>
-          <FormItem form={props.form} name="FormOptions.File2" />
+          <FormItem form={props.form} name="FormOptions.File2">
+            {''}
+          </FormItem>
         </Col>
       </Row>
       {!props.form.values.FormOptions.isLoggedIn ? (
         <Row>
           <Col>
             <Button
-              label="Selecteer uw legitimatie"
+              label="Selecteer uw (kopie)identiteitsbewijs. Verplicht als u een nieuwe relatie/licentiehouder bent."
               icon="pi pi-plus"
               className="p-button-secondary"
               onClick={onFile3Click}
@@ -172,7 +176,9 @@ const Document: React.FC<DocumentProps> = (props) => {
                   : ''}
               </i>
             </span>
-            <FormItem form={props.form} name="FormOptions.File3" />
+            <FormItem form={props.form} name="FormOptions.File3">
+              {''}
+            </FormItem>
           </Col>
         </Row>
       ) : null}

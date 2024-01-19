@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { LicenseSteps } from '../../../shared/Model';
 
@@ -6,7 +6,7 @@ import { Button } from '@erkenningen/ui/components/button';
 import { Col } from '@erkenningen/ui/layout/col';
 import { Row } from '@erkenningen/ui/layout/row';
 
-import { ERKENNINGEN_LOGIN_URL } from '@erkenningen/config';
+import { ERKENNINGEN_LOGIN_URL } from '@erkenningen/config/dist/index';
 import FormCheck from '../../../components/ui/FormCheck';
 import { FormikProps } from 'formik';
 import ILicenseFormValues from '../ILicenseFormValues';
@@ -17,9 +17,11 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = (props) => {
-  if (props.form.values.FormOptions.isLoggedIn) {
-    props.setStep(LicenseSteps.Email);
-  }
+  useEffect(() => {
+    if (props.form.values.FormOptions.isLoggedIn) {
+      props.setStep(LicenseSteps.Email);
+    }
+  }, []);
 
   const onSubmit = (): void => {
     // If user has account, then redirect to DNN login

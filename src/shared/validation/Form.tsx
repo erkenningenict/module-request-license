@@ -1,4 +1,4 @@
-import add from 'date-fns/add';
+import { add } from 'date-fns/add';
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
 
@@ -59,7 +59,7 @@ const ValidationSchema = Yup.object().shape({
       .min(add(new Date(), { years: -5 }), 'Datum mag maximaal 5 jaar in het verleden liggen')
       .max(new Date(), 'Datum mag niet in de toekomst liggen')
       .when('Vooropleiding.Code', {
-        is: '30.02', // Adviseren Gewasbeschermin g HBO Certificaat
+        is: '30.02', // Adviseren Gewasbescherming HBO Certificaat
         then: Yup.date()
           .strict(true)
           .min(new Date(2019, 0, 1), 'Datum mag niet voor 1 januari 2019 liggen'),

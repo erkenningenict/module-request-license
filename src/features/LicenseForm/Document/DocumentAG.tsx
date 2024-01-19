@@ -76,7 +76,7 @@ const DocumentAG: React.FC<DocumentAGProps> = (props) => {
         <Col>
           <Alert type="info">
             Upload uw certificaat Adviseren Gewasbescherming{' '}
-            {!props.form.values.FormOptions.isLoggedIn ? 'en legitimatie' : null}.
+            {!props.form.values.FormOptions.isLoggedIn ? 'en identiteitsbewijs' : null}.
           </Alert>
         </Col>
       </Row>
@@ -108,7 +108,7 @@ const DocumentAG: React.FC<DocumentAGProps> = (props) => {
         <Row>
           <Col>
             <Button
-              label="Selecteer uw legitimatie"
+              label="Selecteer uw identiteitsbewijs"
               icon="pi pi-plus"
               className="p-button-secondary"
               onClick={onFile2Click}

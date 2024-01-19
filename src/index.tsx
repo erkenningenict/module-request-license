@@ -1,15 +1,6 @@
-// Add IE11 support
-import 'core-js/es/map';
-import 'core-js/es/set';
-import 'es6-shim';
-import 'react-app-polyfill/ie11';
-
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-import { ERKENNINGEN_GRAPHQL_API_URL, ERKENNINGEN_SITE_TYPE } from '@erkenningen/config';
+import { ERKENNINGEN_GRAPHQL_API_URL } from '@erkenningen/config/dist/index';
 import { ApolloClient, ApolloLink, ApolloProvider, InMemoryCache } from '@apollo/client';
-import { createUploadLink } from 'apollo-upload-client';
+import createUploadLink from 'apollo-upload-client/createUploadLink.mjs';
 
 import App from './App';
 
@@ -20,20 +11,22 @@ import './index.css';
 const cache = new InMemoryCache();
 
 const client = new ApolloClient({
-  link: (createUploadLink({
+  link: createUploadLink({
     uri: ERKENNINGEN_GRAPHQL_API_URL,
     credentials: 'include',
-  }) as unknown) as ApolloLink,
+  }) as unknown as ApolloLink,
   cache,
 });
 
-ReactDOM.render(
-  <ThemeContext.Provider value={{ mode: ERKENNINGEN_SITE_TYPE }}>
+import { createRoot } from 'react-dom/client';
+const container = document.getElementById('erkenningen-module-request-license');
+const root = createRoot(container!); // createRoot(container!) if you use TypeScript
+root.render(
+  <ThemeContext.Provider value={{ mode: 'admin' }}>
     <ApolloProvider client={client}>
       <ThemeBureauErkenningen>
         <App />
       </ThemeBureauErkenningen>
     </ApolloProvider>
   </ThemeContext.Provider>,
-  document.getElementById('erkenningen-module-request-license'),
 );
