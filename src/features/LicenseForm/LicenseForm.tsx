@@ -290,7 +290,7 @@ const LicenseForm: React.FC = () => {
                 </Panel>
               ) : null}
               {currentStep === LicenseSteps.DocumentAG ? (
-                <Panel title="Certificaat en legitimatie">
+                <Panel title="Certificaat en identiteitsbewijs">
                   <DocumentAG setStep={setStep} form={props} />
                 </Panel>
               ) : null}
